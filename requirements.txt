@@ -1,0 +1,4 @@
+-r ./requirements/compiled.txt
+-r ./requirements/prod.txt
+-e git://github.com/kennethreitz/dj-static.git@b02979384d#egg=dj-static
+gunicorn==19.0.0

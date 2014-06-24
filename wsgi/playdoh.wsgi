@@ -13,6 +13,9 @@ site.addsitedir(os.path.abspath(os.path.join(wsgidir, '../')))
 import manage
 
 import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
+from dj_static import Cling, MediaCling
+
+application = Cling(MediaCling(django.core.handlers.wsgi.WSGIHandler()))
+
 
 # vim: ft=python
