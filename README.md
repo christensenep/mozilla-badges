@@ -1,47 +1,38 @@
-badg.us
-=======
+# Mozilla Badges
 
-badg.us is a badge service based on [django-badger][] and [playdoh][].
+Mozilla Badges powers [badges.mozilla.org][bmo], a badge service based on [django-badgekit][] and [playdoh][].
 
+[bmo]: https://badges.mozilla.org/
 [playdoh]: https://github.com/mozilla/playdoh
-[django-badger]: https://github.com/mozilla/django-badger
+[django-badgekit]: https://github.com/mozilla/django-badgekit
 
-Bugs and Ideas
---------------
-Feel free to file them [as issues on the badges.mozilla.org project][issues]!
+## Bugs and Ideas
 
-[issues]: https://github.com/mozilla/badges.mozilla.org/issues
+Feel free to file them [as issues on the mozilla-badges project][issues]!
+
+[issues]: https://github.com/mozilla/mozilla-badges/issues
 
 Development
 -----------
 
 Here's how I get it running on my MacBook:
 
-    git clone 
-    git submodule update --init --recursive
-    virtualenv --no-site-packages venv
-    . ./venv/bin/activate
+    git clone --recursive git@github.com:mozilla/mozilla-badges.git
+    [mkvirtualenv][virtualenvwrapper] mozilla-badges
+    workon mozilla-badges
     pip install -r requirements/compiled.txt
     pip install -r requirements/dev.txt
-    # Set up a mysql database
+    cd mozilla-badges
+    cp badgus/settings/local.py-dist badgus/settings/local.py
+    # Set up mysql database
     # Edit badgus/settings/local.py
-    # change db credentials and add HMAC_KEYS
+    pip install python-memcached
+    pip install python-six
     ./manage.py syncdb
     ./manage.py migrate
-    ./manage.py compress_assets
-    ./manage.py runserver 0.0.0.0:8000
+    ./manage.py runserver 127.0.0.1:8000
 
-Under Ubuntu 12.10 (64 bit), all the above worked after first installing some
-packages and rejiggering some files:
-
-    sudo apt-get install build-essential python-dev python-pip \
-        python-virtualenv mysql-server libmysqlclient-dev libxml2-dev \
-        libxslt-dev memcached libjpeg8 libjpeg62-dev libfreetype6 \
-        libfreetype6-dev
-
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
+[virtualenvwrapper]: http://virtualenvwrapper.readthedocs.org/
 
 License
 -------
