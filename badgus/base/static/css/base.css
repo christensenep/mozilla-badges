@@ -193,7 +193,7 @@ li.award {
 li.badge .card,
 li.award .card {
   position: relative;
-  padding: 0.75em 0 1em;
+  padding: 0;
   margin: 0;
   border: solid 1px rgba(0,0,0,0.1);
   display: block;
@@ -262,6 +262,20 @@ li.award .image {
   line-height: 128px;
   border-radius: 0.066em 0.066em 0 0;
   -webkit-transition: all 0.25s;
+  width: 100%;
+  height: auto;
+}
+
+li.badge span.image,
+li.award span.image {
+  padding-top: 100%;
+  height: 0;
+}
+
+li.badge span.image .fa,
+li.award span.image .fa {
+  display: block;
+  margin-top: -80%;
 }
 
 li.badge a,
@@ -282,14 +296,14 @@ li.badge a:focus .focus,
 li.badge a:hover .focus,
 li.award a:focus .focus,
 li.award a:hover .focus {
-  -webkit-transform: scale(1.15);
+  -webkit-transform: scale(1.05);
 }
 
 li.badge .label,
 li.award .label {
   display: block;
   font-size: 0.8em;
-  margin: 1em 0 -1.25em;
+  margin: 0;
   padding: 0.625em 1.25em;
   background: rgba(255,255,255,0.5);
   border-radius: 0 0 0.5em 0.5em;
