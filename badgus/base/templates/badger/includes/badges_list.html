@@ -10,7 +10,7 @@
             {%- endif -%}
             <li class="badge col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 <a href="{{ badge.get_absolute_url() }}" class="card">
-                    <img src="{{ img_url }}" alt="{{ badge.title }}" width="128" height="128" class="image focus">
+                    <img src="{{ img_url }}" alt="{{ badge.title }}" width="128" height="128" class="image">
                     <span class="label">{{ badge.title }}</span>
                 </a>
             </li>
@@ -18,7 +18,7 @@
         {%- if include_new_badge_item != false -%}
             <li class="new badge col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 <a href="{{ url('badger.views.create') | urlparams(tags=tag_name) }}" class="card">
-                    <span class="image focus"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                    <span class="image"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
                     <span class="label"><em>{{ _('Create new badge') }}</em></span>
                 </a>
             </li>
@@ -26,7 +26,7 @@
         {%- if include_more_badges_item -%}
             <li class="see-all badge col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 <a href="{{ url('badger.views.badges_list') }}" class="card">
-                    <span class="image focus"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
+                    <span class="image"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
                     <span class="label"><em>{{ _('See all badges') }}</em></span>
                 </a>
             </li>

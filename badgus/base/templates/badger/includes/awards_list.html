@@ -26,7 +26,7 @@
         {%- if include_more_awards_item -%}
             <li class="see-all award col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 <a href="{{ url('badger.views.awards_list') }}" class="card">
-                    <span class="image focus"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
+                    <span class="image"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
                     <span class="label"><em>{{ _('See all awards') }}</em></span>
                 </a>
             </li>

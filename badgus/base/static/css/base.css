@@ -220,9 +220,9 @@ li.badge .card-wrapper:hover,
 li.badge .card-wrapper:focus,
 li.award .card-wrapper:hover,
 li.award .card-wrapper:focus {
-  -webkit-transform: rotateX(-180deg);
-  -moz-transform: rotateX(-180deg);
-  transform: rotateX(-180deg);
+  -webkit-transform: scale(1.02) rotateX(-180deg);
+  -moz-transform: scale(1.02) rotateX(-180deg);
+  transform: scale(1.02) rotateX(-180deg);
   z-index: 1;
 }
 
@@ -230,11 +230,9 @@ li.badge .card-wrapper .card-front,
 li.badge .card-wrapper .card-back,
 li.award .card-wrapper .card-front,
 li.award .card-wrapper .card-back {
-/* */
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-/* */
 }
 
 li.badge .card-wrapper .card-front,
@@ -270,12 +268,19 @@ li.badge span.image,
 li.award span.image {
   padding-top: 100%;
   height: 0;
+  position: relative;
 }
 
 li.badge span.image .fa,
 li.award span.image .fa {
   display: block;
-  margin-top: -80%;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -0.5em 0 0 -0.5em;
 }
 
 li.badge a,
@@ -283,20 +288,18 @@ li.award a {
   display: block;
   text-decoration: none;
   color: inherit;
-}
-
-li.badge .focus,
-li.badge .focus,
-li.award .focus,
-li.award .focus {
   -webkit-transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  transition: all 0.25s;
 }
 
-li.badge a:focus .focus,
-li.badge a:hover .focus,
-li.award a:focus .focus,
-li.award a:hover .focus {
-  -webkit-transform: scale(1.05);
+li.badge a:focus,
+li.badge a:hover,
+li.award a:focus,
+li.award a:hover {
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 li.badge .label,
