@@ -1,0 +1,185 @@
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+.group:after {
+  clear: both;
+}
+
+.group {
+  zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+.col {
+  display: block;
+  float: left;
+  margin: 0 0 0 2.5%;
+}
+
+.grid .col {
+  margin-bottom: 1.5%;
+  display: inline-block;
+  vertical-align: top;
+  float: none;
+}
+
+.col:first-child,
+.grid .new-row {
+  margin-left: 0; /* all browsers except IE6 and lower */
+  clear: both;
+}
+
+@media only screen and (max-width: 480px) {
+  .col {
+    margin: 1% 0 1% 0%;
+  }
+}
+
+/* =[ GRID OF ONE (!) ]====================================================== */
+
+.span_1_of_1 {
+  width: 100%;
+}
+
+/* =[ GRID OF TWO ]========================================================== */
+
+.span_2_of_2 {
+  width: 100%;
+}
+
+.span_1_of_2 {
+  width: 48.75%;
+}
+
+@media only screen and (max-width: 480px) {
+  .span_2_of_2,
+  .span_1_of_2 {
+    width: 100%;
+  }
+}
+
+/* =[ GRID OF THREE ]======================================================== */
+
+.span_3_of_3 {
+  width: 100%;
+}
+
+.span_2_of_3 {
+  width: 65.83%;
+}
+
+.span_1_of_3 {
+  width: 31.66%;
+}
+
+@media only screen and (max-width: 480px) {
+  .span_3_of_3,
+  .span_2_of_3,
+  .span_1_of_3 {
+    width: 100%;
+  }
+}
+
+/* =[ GRID OF FOUR ]========================================================= */
+
+.span_4_of_4 {
+  width: 100%;
+}
+
+.span_3_of_4 {
+  width: 74.37%;
+}
+
+.span_2_of_4 {
+  width: 48.75%;
+}
+
+.span_1_of_4 {
+  width: 23.12%;
+}
+
+@media only screen and (max-width: 480px) {
+  .span_4_of_4,
+  .span_3_of_4,
+  .span_2_of_4,
+  .span_1_of_4 {
+    width: 100%;
+  }
+}
+
+/* =[ GRID OF FIVE ]========================================================= */
+
+.span_5_of_5 {
+  width: 100%;
+}
+
+.span_4_of_5 {
+  width: 79.5%;
+}
+
+.span_3_of_5 {
+  width: 59%;
+}
+
+.span_2_of_5 {
+  width: 38.5%;
+}
+
+.span_1_of_5 {
+  width: 18%;
+}
+
+@media only screen and (max-width: 480px) {
+  .span_5_of_5,
+  .span_4_of_5,
+  .span_3_of_5,
+  .span_2_of_5,
+  .span_1_of_5 {
+    width: 100%;
+  }
+}
+
+/* =[ GRID OF SIX ]=========================================================+ */
+
+.span_6_of_6 {
+  width: 100%;
+}
+
+.span_5_of_6 {
+  width: 82.91%;
+}
+
+.span_4_of_6 {
+  width: 65.83%;
+}
+
+.span_3_of_6 {
+  width: 48.75%;
+}
+
+.span_2_of_6 {
+  width: 31.66%;
+}
+
+.span_1_of_6 {
+  width: 14.58%;
+}
+
+@media only screen and (max-width: 480px) {
+  .span_6_of_6,
+  .span_5_of_6,
+  .span_4_of_6,
+  .span_3_of_6,
+  .span_2_of_6,
+  .span_1_of_6 {
+    width: 100%;
+  }
+}

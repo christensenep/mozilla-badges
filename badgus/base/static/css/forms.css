@@ -1,0 +1,60 @@
+.form-field-error {
+  border-color: #af3232;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset, 0 0 8px 0 rgba(175, 50, 50, 0.6);
+}
+.image-replaced {
+  text-indent: 120%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+textarea,
+input[type=email],
+input[type=password],
+input[type=text] {
+  height: 1.25em;
+  background: #fafafa;
+  border-color: #dbdbdb;
+  border-style: solid;
+  border-width: 1px;
+  padding: 3.3333333333333335px 6.666666666666667px;
+  border-radius: 6px;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset;
+  -webkit-transition: all linear 0.1s;
+  transition: all linear 0.1s;
+  font-family: inherit;
+  font-size: inherit;
+}
+textarea {
+  height: auto;
+}
+textarea:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus {
+  border-color: #bbb;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset, 0 0 8px 0 rgba(103, 167, 208, 0.6);
+  -webkit-transition: all linear 0.1s;
+  transition: all linear 0.1s;
+}
+.field {
+  margin-bottom: 6.666666666666667px;
+}
+.errorlist {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #c00;
+}
+.errorlist li {
+  list-style-type: none;
+  margin: 0;
+}
+.field-error input[type=email],
+.field-error input[type=password],
+.field-error input[type=text] {
+  border-color: #af3232;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset, 0 0 8px 0 rgba(175, 50, 50, 0.6);
+}
+.super-priority-field {
+  display: none;
+  visibility: hidden;
+}

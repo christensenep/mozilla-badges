@@ -1,0 +1,320 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'),
+       local('OpenSans-Light'),
+       url('../fonts/opensans-light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'),
+       local('OpenSans'),
+       url('../fonts/opensans.woff') format('woff');
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Open Sans', 'Droid Arabic Naskh', 'Mplus Fulah', sans-serif;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.75);
+  color: #333;
+}
+
+h2 {
+  margin: 0 0 1em;
+  font-weight: 100;
+  font-size: 48px;
+  letter-spacing: -2px;
+}
+
+h2 .action {
+  float: right;
+}
+
+h3 {
+  margin: 0.5em 0;
+  font-weight: 100;
+  font-size: 36px;
+}
+
+h2 a,
+h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 5em;
+}
+
+.hero .title {
+  color: #C13832;
+  font-family: 'Open Sans Light', 'Droid Arabic Naskh', 'Mplus Fulah Light', sans-serif;
+  font-size: 84px;
+  font-weight: bold;
+  letter-spacing: -0.05em;
+  margin: 0 0 .05em;
+  line-height: 100%;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.hero .tagline {
+  font-family: 'Open Sans Light', 'Droid Arabic Naskh', 'Mplus Fulah Light', sans-serif;
+  font-size: 55px;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.hero hr {
+  border: none;
+  border-top: solid 1px rgba(0,0,0,0.15);
+  padding: 0;
+  margin: 0 -0.5em;
+  height: 1.5em;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero hr:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 200%;
+  background: -moz-radial-gradient(center, ellipse contain,  rgba(0,0,0,0.25), rgba(0,0,0,0));
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.25)), color-stop(100%,rgba(0,0,0,0)));
+  background: -webkit-radial-gradient(center, ellipse contain,  rgba(0,0,0,0.25), rgba(0,0,0,0));
+  background: -o-radial-gradient(center, ellipse contain,  rgba(0,0,0,0.25), rgba(0,0,0,0));
+  background: -ms-radial-gradient(center, ellipse contain,  rgba(0,0,0,0.25), rgba(0,0,0,0));
+  background: radial-gradient(ellipse closest-side at center,  rgba(0,0,0,0.25), rgba(0,0,0,0));
+}
+
+.hero hr:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: solid 1px rgba(255,255,255,0.5);
+}
+
+.hero .search {
+  margin: 1em 0;
+  font-size: 2em;
+}
+
+.hero .search label {
+  position: relative;
+  z-index: 1;
+  cursor: text;
+  margin-left: 0.25em;
+}
+
+.hero .search input {
+  margin-left: -1.5em;
+  padding-left: 1.5em;
+}
+
+#nav-access {
+  width: 100%;
+  position: absolute;
+  top: -20em;
+  z-index: 1001;
+  margin: 0;
+  padding: 0;
+}
+
+#nav-access a {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-weight: bold;
+  text-align: center;
+  color: inherit;
+}
+
+#nav-access a:hover,
+#nav-access a:focus {
+  box-shadow: 3px 3px 5px #AAA;
+  top: 20em;
+  text-decoration: none;
+}
+
+#outer-wrapper {
+  position: relative;
+  border-top: 2px solid #FFF;
+  background: #F5F1E8 url(../img/sandstone/bg-gradient-sand.png) repeat-x;
+  background: url(../img/sandstone/bg-gradient-sand.png) repeat-x,
+              url(../img/sandstone/bg-sand.png) repeat,
+              #F5F1E8;
+}
+
+#outer-wrapper .tag:after {
+  background: #F5F1E8;
+}
+
+#masthead {
+  overflow: hidden;
+  padding-bottom: 24px;
+}
+
+#masthead .constrained {
+  position: relative;
+}
+
+#masthead .title {
+  margin: 0;
+  padding: 28px 0;
+}
+
+#masthead a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#tabzilla {
+  margin-top: -28px;
+}
+
+#home #tabzilla {
+  margin-top: 0;
+}
+
+#nav-user {
+  position: absolute;
+  right: 200px;
+  top: 12px;
+  font-size: 13px;
+}
+
+#nav-user a:hover,
+#nav-user a:focus {
+  text-decoration: underline;
+}
+
+#nav-user .notices {
+  background: rgba(0,0,0,0.5);
+  color: #FFF;
+  text-decoration: none;
+  text-shadow: none;
+  font-size: 11px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  display: inline-block;
+  min-width: 1em;
+  text-align: center;
+}
+
+#nav-home {
+  display: block;
+  width: 270px;
+  height: 80px;
+  overflow: hidden;
+  text-indent: -100%;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.25) 10px, rgba(255,255,255,.25) 20px);
+  position: relative;
+  border-radius: 0.25em 40px 40px 0.25em;
+  box-shadow: inset 0 0 1em rgba(255,255,255,0.5), 0 0 0.25em rgba(0,0,0,0.1);
+}
+
+#nav-home:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 70px;
+  height: 70px;
+  border-radius: 0.125em;
+  background: rgba(0,0,0,0.05);
+}
+
+#nav-home:after {
+  content: "Logo";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 80px;
+  right: 5px;
+  bottom: 0;
+  line-height: 80px;
+  color: rgba(0,0,0,0.1);
+  font-size: 2em;
+  text-indent: 0;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: none;
+  letter-spacing: -0.1em;
+}
+
+#masthead .navigation {
+  float: right;
+  margin-top: -28px;
+}
+
+#masthead .menu {
+  margin: -2em 0 0;
+  padding: 0;
+  list-style: none;
+  line-height: 2em;
+}
+
+#masthead .menu-item {
+  float: left;
+  margin-left: 1.5em;
+}
+
+#masthead .menu a,
+#masthead .menu label {
+  text-transform: uppercase;
+  font-weight: bold;
+  z-index: 1;
+  position: relative;
+}
+
+#masthead .menu label {
+  cursor: text;
+}
+
+#masthead .menu .q {
+  border: none;
+  font: inherit;
+  vertical-align: baseline;
+  line-height: 1em;
+  height: 1.5em;
+  width: 8em;
+  margin: -0.3em 0 0 -1.6em;
+  padding: 0.1em 0 0.1em 1.6em;
+  background: rgba(255,255,255,0.5);
+  border-radius: 0.25em;
+  box-shadow: inset 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+#masthead .menu .q:focus {
+  background: rgba(255,255,255,0.75);
+}
+
+#content {
+  padding-bottom: 5em;
+}
+
+#footer {
+  color: #666;
+  padding: 40px 0;
+  font-size: .875em;
+  line-height: 1.285;
+  background: #FFF;
+  width: 100%;
+  margin: 0;
+  clear: both;
+}
