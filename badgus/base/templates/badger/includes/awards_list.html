@@ -1,34 +1,38 @@
-<ul class="awards">
-    {% for award in award_list %}
-
-        {% if award.image %}
-            {% set img_url = award.image.url %}
-        {% elif award.badge.image %}
-            {% set img_url = award.badge.image.url %}
-        {% else %}
-            {% set img_url = static("img/default-badge.png") %}
-        {% endif %}
-    
-        <li class="award">
-
-            <a href="{{ award.get_absolute_url() }}" class="award_image"><img src="{{ img_url }}"
-                alt="{{ award.badge.title }}" width="128" height="128" /></a>
-        
-            <a href="{{ award.get_absolute_url() }}" class="label">
-                {% trans title=award.badge.title, user=award.user %}
-                    <span class="badge_title">{{ title }}</span>
-                    <span class="relation">awarded to</span>
-                    <span class="user">{{ user }}</span>
-                {% endtrans %}
-            </a>
-            
-            <a href="{{ award.get_absolute_url() }}" class="avatar_image"><img src="{{ user_avatar(award.user) }}"
-                alt="{{ award.badge.title }}" width="128" height="128" /></a>            
-
-        </li>
-
-    {% endfor %}
-</ul>
-{% if not hide_pagination %}
-    {% include "badger/includes/pagination.html" %}
-{% endif %}
+{% set cols = cols or 1 %}
+{% set row_index = cycler(*range(cols)) %}
+<div class="section group">
+    <ul class="awards grid">
+        {%- for award in award_list -%}
+            {%- if award.image -%}
+                {%- set img_url = award.image.url -%}
+            {%- elif award.badge.image -%}
+                {%- set img_url = award.badge.image.url -%}
+            {%- else -%}
+                {%- set img_url = static("img/default-badge.png") -%}
+            {%- endif -%}
+            <li class="award col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
+                <a href="{{ award.get_absolute_url() }}" class="card-wrapper">
+                    <span class="card card-front">
+                        <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
+                        <span class="label">{{ award.badge.title }}</span>
+                    </span>
+                    <span class="card card-back">
+                        <img src="{{ user_avatar(award.user) }}" width="128" height="128" class="image">
+                        <span class="label">{{ award.user }}</span>
+                    </span>
+                </a>
+            </li>
+        {%- endfor -%}
+        {%- if include_more_awards_item -%}
+            <li class="see-all award col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
+                <a href="{{ url('badger.views.awards_list') }}" class="card">
+                    <span class="image focus"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
+                    <span class="label"><em>{{ _('See all awards') }}</em></span>
+                </a>
+            </li>
+        {%- endif -%}
+    </ul>
+    {%- if not hide_pagination -%}
+        {%- include "badger/includes/pagination.html" -%}
+    {%- endif -%}
+</div>

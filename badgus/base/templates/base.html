@@ -1,133 +1,138 @@
 <!DOCTYPE html>
-<html LANG="{{ LANG }}" dir="{{ DIR }}"
-      xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="https://www.facebook.com/2008/fbml">
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <title>{% block page_title %}{{ settings.SITE_TITLE }}{% endblock %}</title>
-    {% block site_css %}
-      {% compress css %}
-        <link href="{{ static('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ static('bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
-        <link href="{{ static('css/base.css') }}" rel="stylesheet">
-      {% endcompress %}
-    {% endblock %}
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    {% if settings.FACEBOOK_ADMINS %}
-        <meta property="fb:admins" content="{{ settings.FACEBOOK_ADMINS }}">
-    {% endif %}
-    {% if settings.FACEBOOK_APP_ID %}
-        <meta property="fb:app_id" content="{{ settings.FACEBOOK_APP_ID }}">
-    {% endif %}
-    {% block extrahead %}{% endblock %}
-  </head>
-  <body id="{% block pageid %}{% endblock %}" class="html-{{ DIR }} {% block bodyclass %}{% endblock %}" data-mobile-cookie="{{ settings.MOBILE_COOKIE }}">
-      
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a href="{{ url('home') }}"><img width="42" height="42" align="bottom" src="{{ static('img/logo.png') }}" class="logo" /></a>
-          <a class="brand" href="{{ url('home') }}">{{ settings.SITE_TITLE }}</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a href="{{ url('badger.views.badges_list') }}">{{ _('Badges') }}</a></li>
-              <li><a href="{{ url('badger.views.awards_list') }}">{{ _('Awards') }}</a></li>
-              {% set allow_staff = (user.is_staff or user.is_superuser) %}
-              {% if allow_staff %}
-                  <li><a href="{{ url('badger.views.staff_tools') }}">{{ _('Staff Tools') }}</a></li>
-              {% endif %}
-            </ul>
-            <form class="navbar-search pull-left search_badges" method="GET"
-                    action="{{ url('badger.views.badges_list') }}">
-                <input type="text" name="q" id="id_q" class="search-query span2"
-                    value="{{ request.GET.get('q', '') }}" placeholder="{{ _('Search') }}" />
-            </form>
-            <div class="navbar-text pull-right">
-                {% if request.user.is_authenticated() %}
-                    {% trans user_url=request.user.get_absolute_url(), user_name=request.user, user_email=request.user.email %}
-                        Welcome back, <a class="signed-in-user" data-email="{{user_email}}" href="{{user_url}}">{{user_name}}</a>
-                    {% endtrans %}
-                    (
-                        {% if notice_unseen_count %}
-                            <a class="notices" href="{{ url('notification_notices') }}">{{ notice_unseen_count }}</a>,
-                        {% endif %}
-                        <a class="browserid-signout" href="{{ url('profiles.logout') }}">{{_('Sign out')}}</a>
-                    )
-                {% else %}
-                    {% block signin %}
-                    <form class="browserid" action="{{url('browserid_verify')}}" method="POST">
-                        {{ csrf() }}
-                        {% set next = request.GET.get('next', False) %}
-                        {% if next %}
-                            <input type="hidden" name="next" value="{{ next }}" />
-                        {% else %}
-                            <input type="hidden" name="next" value="{{ request.build_absolute_uri() }}" />
-                        {% endif %}
-                        {{ browserid_form.as_p()|safe }}
-                        <a href="#" class="browserid-signin" title="{{_('Sign In with BrowserID')}}"><img src="{{ static('img/sign_in_blue.png') }}" /></a>
-                    </form>
-                    {% endblock %}
-                {% endif %}
+<html lang="{{ LANG }}" dir="{{ DIR }}">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block page_title %}Mozilla Badges{% endblock %}</title>
+        <link rel="shortcut icon" href="//mozorg.cdn.mozilla.net/media/img/favicon.ico">
+        {% block site_css %}
+            {% compress css %}
+                <link rel="stylesheet" media="screen,projection,tv" href="{{ static('css/grid.css') }}">
+                <link rel="stylesheet" media="screen,projection,tv" href="{{ static('css/buttons.css') }}">
+                <link rel="stylesheet" media="screen,projection,tv" href="{{ static('css/forms.css') }}">
+                <link rel="stylesheet" media="screen,projection,tv" href="{{ static('css/base.css') }}">
+                <link rel="stylesheet" media="screen,projection,tv" href="{{ static('css/sandstone.css') }}">
+            {% endcompress %}
+            <link rel="stylesheet" media="screen,projection,tv" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css?build=61d5d5c">
+            <link rel="stylesheet" media="all" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+        {% endblock %}
+        <!--[if lte IE 8]>
+            <script src="//mozorg.cdn.mozilla.net/media/js/libs/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    <body id="{% block pageid %}{% endblock %}" class="html-{{ DIR }} {% block bodyclass %}{% endblock %}">
+        <ul id="nav-access">
+            <li><a href="#content" id="skip-main">Skip to main content</a></li>
+            {# <li><a id="skip-language" href="#language">Select language</a></li> #}
+            <li><a href="#search" id="skip-search">Skip to search</a></li>
+        </ul>
+        {% block outer_page %}
+            <div id="outer-wrapper">
+                <div id="wrapper">
+                    {% block page %}
+                        {% block outer_header %}
+                            <header id="masthead" role="banner">
+                                <div class="constrained">
+                                    {% block header %}
+                                        {% block site_title %}
+                                            <h1 class="title">
+                                                <a href="http://www.mozilla.org/" id="tabzilla" aria-label="Mozilla links">Mozilla</a>
+                                                <a href="{{ url('home') }}" id="nav-home">Badges</a>
+                                            </h1>
+                                        {% endblock %}
+                                        {% block site_navigation %}
+                                            <nav id="nav-main" class="navigation" role="navigation">
+                                                {% block user_navigation %}
+                                                    <div id="nav-user">
+                                                        {% if request.user.is_authenticated() %}
+                                                            {% trans user_url=request.user.get_absolute_url(), user_name=request.user, user_email=request.user.email %}
+                                                                <a class="signed-in-user" data-email="{{user_email}}" href="{{user_url}}">{{user_name}}</a>
+                                                            {% endtrans %}
+                                                            {% if notice_unseen_count %}
+                                                                <a class="notices" aria-label="Messages" href="{{ url('notification_notices') }}">{{ notice_unseen_count }}</a>
+                                                            {% endif %}
+                                                            | <a class="browserid-signout" href="{{ url('profiles.logout') }}">{{_('Sign out')}}</a>
+                                                        {% else %}
+                                                            {% block signin %}
+                                                                {% include 'badger/includes/persona.html' %}
+                                                            {% endblock %}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endblock %}
+                                                {% block main_navigation %}
+                                                    <ul class="menu">
+                                                        <li class="first menu-item badges-item"><a href="{{ url('badger.views.badges_list') }}">{{ _('Badges') }}</a></li>
+                                                        <li class="menu-item awards-item"><a href="{{ url('badger.views.awards_list') }}">{{ _('Awards') }}</a></li>
+                                                        {% if (user.is_staff or user.is_superuser) %}
+                                                            <li class="menu-item tools-item"><a href="{{ url('badger.views.staff_tools') }}">{{ _('Staff Tools') }}</a></li>
+                                                        {% endif %}
+                                                        <li class="last menu-item search-item">
+                                                            <form method="get" action="{{ url('badger.views.badges_list') }}" class="search" title="Search">
+                                                                <label for="search"><i class="fa fa-search" aria-label="{{ _('Search') }}" aria-hidden="true"></i></label>
+                                                                <input type="text" name="q" id="search" class="q"
+                                                                    value="{{ request.GET.get('q', '') }}" aria-label="{{ _('Search') }}">
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                {% endblock %}
+                                            </nav>
+                                        {% endblock %}
+                                    {% endblock header %}
+                                </div>
+                            </header>
+                        {% endblock outer_header %}
+                        {% block outer_content %}
+                            <main id="content" role="main">
+                                <div class="constrained">
+                                    {% block content %}
+                                    {% endblock %}
+                                </div>
+                            </main>
+                        {% endblock outer_content %}
+                        {% block outer_footer %}
+                            <footer id="footer" role="contentinfo">
+                                <div class="constrained">
+                                    {% block footer %}
+                                        <div class="section group">
+                                            <div class="col span_2_of_3">
+                                                <p><a href="http://www.mozilla.org/{{ LANG }}"><img src="{{ static('img/footer-mozilla.png') }}" alt="Mozilla"></a></p>
+                                                <p>
+                                                  {{ _('The code that runs this site is Open Source and available at <a href="{url}">{url}</a>.')|fe(url='https://github.com/mozilla/badges.mozilla.org') }}
+                                                </p>
+                                                <p>
+                                                  {{ _('If you have problems, <a href="{url}">please file an issue</a>.')|fe(url='https://github.com/mozilla/badges.mozilla.org/issues') }}
+                                                </p>
+                                            </div>
+                                            <div class="col span_1_of_3">
+                                                <p><a href="http://openbadges.org/"><img src="{{ static('img/openbadges-logo.png') }}" alt="Open Badges"></a></p>
+                                            </div>
+                                        </div>
+                                    {% endblock footer %}
+                                </div>
+                            </footer>
+                        {% endblock outer_footer %}
+                    {% endblock page %}
+                </div>
             </div>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span12">
-          <section>
-            {% if messages %}
-                <header class="messages">
-                    {% for message in messages %}
-                        <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-                    {% endfor %}
-                </header>
-            {% endif %}
-            {# {% block subnav %}{% endblock %} #}
-            {% block content %}{% endblock %}
-          </section>
-        </div><!--/span-->
-      </div><!--/row-->
-
-      <footer>
-        <p>
-          {{ _('The code that runs this site is Open Source and available at <a href="{url}">{url}</a>.')|fe(url='https://github.com/mozilla/badges.mozilla.org') }}
-        </p>
-        <p>
-          {{ _('If you have problems, <a href="{url}">please file an issue</a>.')|fe(url='https://github.com/mozilla/badges.mozilla.org/issues') }}
-        </p>
-        {% if false %}
-          <div id="footer">
-            {# These links will add/remove cookies. See JavaScript. #}
-            <a class="desktop-link" href="">{{ _('View Desktop Site') }}</a>
-            &nbsp;|&nbsp;
-            <a class="mobile-link" href="">{{ _('View Mobile Site') }}</a>
-          </div>
-        {% endif %}
-      </footer>
-
-    </div><!--/.fluid-container-->
-
-    {% block site_js %}
-      <script src="https://login.persona.org/include.js"></script>
-      {% compress js %}
-        <script src="{{ static('js/libs/jquery-1.7.1.min.js') }}"></script>
-        <script src="{{ static('js/libs/jquery.cookie.js') }}"></script>
-        <script src="{{ static('js/libs/browserid.js') }}"></script>
-        <script src="{{ static('js/base.js') }}"></script>
-        <script src="{{ static('bootstrap/js/bootstrap.min.js') }}"></script>
-      {% endcompress %}
-    {% endblock %}
-    {% block js %}{% endblock %}
-
-  </body>
+        {% endblock outer_page %}
+        {% block site_js %}
+            <script src="https://login.persona.org/include.js"></script>
+            {% compress js %}
+                <script src="{{ static('js/libs/jquery-1.7.1.min.js') }}"></script>
+                <script src="{{ static('js/libs/jquery.cookie.js') }}"></script>
+                <script src="{{ static('js/libs/browserid.js') }}"></script>
+                <script src="{{ static('js/base.js') }}"></script>
+            {% endcompress %}
+            <script src="//mozorg.cdn.mozilla.net/en-US/tabzilla/tabzilla.js?build=61d5d5c"></script>
+            <script>
+                (function ($) {
+                    $('#skip-search').click(function (e) {
+                        e.preventDefault();
+                        $('input[name=q]').last().focus();
+                    });
+                })(jQuery)
+            </script>
+        {% endblock %}
+        {% block js %}
+        {% endblock %}
+    </body>
 </html>

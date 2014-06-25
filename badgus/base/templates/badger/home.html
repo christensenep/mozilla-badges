@@ -11,157 +11,82 @@
         href="{{ url('badger.feeds.badges_recent', 'atom') }}" />
 {% endblock %}
 
-{% block content %}
-
-<section class="home-intro hero-unit">
-    <h1><span>{{ settings.SITE_TITLE }}</span></h1>
-
-    <div class="row-fluid">
-
-        <section class="item span3">
-            <section class="blurb">
-            {% if not config.BADGER_ALLOW_ADD_ONLY_BY_MOZILLIANS %}
-                <h3>Welcome!</h3>
-                <p>{% trans %}
-                    This is a service for creating and issuing badges,
-                    based on <a href="https://github.com/mozilla/badges.mozilla.org">Open&nbsp;Source</a>
-                    software and the <a href="http://www.openbadges.org/">Mozilla OpenBadges</a>
-                    standard.
-                {% endtrans %}</p>
-            {% else %}
-                <h3>Badges for & by Mozillians!</h3>
-                <p>{% trans %}
-                    This is a service for the Mozilla community,
-                    using the <a href="http://www.openbadges.org/">Mozilla OpenBadges</a>
-                    standard and
-                    <a href="https://github.com/mozilla/badges.mozilla.org">Open&nbsp;Source</a>
-                    software.
-                {% endtrans %}</p>
-            {% endif %}
-            </section>
-            <section class="action">
-                {% if request.user.is_authenticated() %}
-                    <p><a class="action btn btn-info btn-large" href="{{ request.user.get_absolute_url() }}">{{ _("☺  View your profile") }}</a></p>
-                {% else %}
-                    {% block signin %}
-                    <form class="browserid" action="{{url('browserid_verify')}}" method="POST">
-                        {{ csrf() }}
-                        {% set next = request.GET.get('next', False) %}
-                        {% if next %}
-                            <input type="hidden" name="next" value="{{ next }}" />
-                        {% else %}
-                            <input type="hidden" name="next" value="{{ request.build_absolute_uri() }}" />
-                        {% endif %}
-                        {{ browserid_form.as_p()|safe }}
-                        <a href="#" class="browserid-signin" title="{{_('Sign In with BrowserID')}}"><img src="{{ static('img/sign_in_blue.png') }}" /></a>
-                    </form>
-                    {% endblock %}
-                {% endif %}
-            </section>
-        </section>
-
-        {% if not config.BADGER_ALLOW_ADD_ONLY_BY_MOZILLIANS %}
-            <section class="item span3">
-                <section class="blurb">
-                    <h3>{{ _("Have an idea for a badge?") }}</h3>
-                    <p>{{ _("Click here to start:") }}</p>
-                </section>
-                <section class="action">
-                    <p><a class="action btn btn-primary btn-large" href="{{ url('badger.views.create') }}">{{ _("✸ Create a new badge") }}</a></p>
-                </section> 
-            </section> 
-        {% elif (not request.user.is_anonymous() and request.user.get_profile().is_vouched_mozillian()) %}
-            <section class="item span3">
-                <section class="blurb">
-                    <h3>{{ _("Have an idea for a badge?") }}</h3>
-                    <p>{{ _("You have a vouched mozillians.org profile, so you're welcome to create and issue badges here. Click here to start:") }}</p>
-                </section>
-                <section class="action">
-                    <p><a class="action btn btn-primary btn-large" href="{{ url('badger.views.create') }}">{{ _("✸ Create a new badge") }}</a></p>
-                </section>
-            </section>
-        {% else %}
-            <section class="item span3">
-                <section class="blurb">
-                    <h3>{{ _("Want to make badges here?") }}</h3>
-                    <p>{{ _("This service requires a vouched profile at mozillians.org associated with the email address used to sign in with Persona.") }}</p>
-                </section>
-                <section class="action">
-                    <p><a class="action btn btn-primary btn-large" href="https://mozillians.org/en-US/about/">{{ _("✸ Learn about mozillians.org") }}</a></p>
-                </section>
-            </section>
-        {% endif %}
-
-        <section class="item span3">
-            <form class="claim" method="POST" action="{{ url('badger.views.claim_deferred_award') }}">
-                {{ csrf() }}
-            <section class="blurb">
-                <h3>{{ _("Have a claim code?") }}</h3>
-                <p>{{ _("Type it here to claim your badge:") }}</p>
-                    <input type="text" size="16" class="text-input claim-code" 
-                           name="code" id="intro_code" 
-                           placeholder="enter claim code" 
-                           value="{{ request.GET.get('code','') }}" />
-            </section>
-            <section class="action">
-                    <input type="submit" class="action btn btn-success btn-large" value="{{ _('Claim award from code') }}" />
-            </section>
-                </form>
-        </section>
-
-        <section class="item span3">
-            <h3>Looking for Open Badges?</h3>
-            <p><a href="http://www.openbadges.org/"><img src="{{ static('img/openbadges-logo.png') }}"></a></p>
-            <p>Free software + an open technical standard to create, issue and
-            verify digital badges across the web.</p>
-            <p><a href="http://www.openbadges.org/">Check out Open Badges 1.0</a></p>
-        </section>
-
-    </div>
-</section>
-
-{% if badge_tags %}
-<section class="row-fluid">
-    <section class="span12">
-        <ul class="tags top_tags">
-            {% for item in badge_tags %}
-                <li><a class="tag" href="{{ url('badger.badges_list', tag_name=item.tag.name) }}"><i class="icon-tag icon-white"></i> {{ item.tag.name }} <span class="count">{{ item.count }}</span></a></li>
-            {% endfor %}
-        </ul>
-    </section>
-</section>
-{% endif %}
-
-<section class="row-fluid">
-
-    <section id="recent_badges" class="span5 item_flow">
-        <header class="page-header">
-            <h2>
-                <span>{{ _("Recently created badges") }}</span>
-                <small>
-                    <a href="{{ url('badger.views.badges_list') }}">{{ _("More...") }}</a>
-                    <a href="{{ url('badger.feeds.badges_recent', 'atom') }}"><img alt="{{ _("Atom feed") }}" src="{{ static('img/feed-icon-14x14.png') }}" /></a>
-                </small>
-            </h2>
-        </header>
-
-        {% set badge_list = badge_list[:12] %}
-        {% include "badger/includes/badges_list.html" %}
-    </section>
-
-    <section id="recent_awards" class="span7 item_flow">
-        <header class="page-header">
-            <h2>
-                <span>{{ _("Recently awarded badges") }}</span>
-                <small>
-                    <a href="{{ url('badger.views.awards_list') }}">{{ _("More...") }}</a>
-                    <a href="{{ url('badger.feeds.awards_recent', 'atom') }}"><img alt="{{ _("Atom feed") }}" src="{{ static('img/feed-icon-14x14.png') }}" /></a>
-                </small>
-            </h2>
-        </header>
-        {% set award_list = award_list[:9] %}
-        {% include "badger/includes/awards_list.html" %}
-    </section>
-
-</section>
+{% block site_title %}
+    <a href="http://www.mozilla.org/" id="tabzilla" aria-label="Mozilla links">Mozilla</a>
 {% endblock %}
+{% block main_navigation %}{% endblock %}
+
+{% block outer_content %}
+    <main id="content" role="main">
+        <div class="constrained">
+            <div class="hero">
+                <h1 class="title"><img src="{{ static('img/mozilla-wordmark-red.png') }}" alt="Mozilla" width="258" height="70" style="margin-bottom: -4px;"> Badges</h1>
+                <p class="tagline">{{ _('Agnoscere res gestas omnes') }}</p>
+                <!-- Worth noting I haven't done Latin in about 15 years! -->
+                <img src="{{ static('img/badge-panel.png') }}" alt="" style="display: block; margin: 0 auto;">
+                <hr>
+                <form method="get" action="{{ url('badger.views.badges_list') }}" class="search" title="Search">
+                    <label for="search"><i class="fa fa-search" aria-label="{{ _('Search') }}" aria-hidden="true"></i></label>
+                    <input type="text" name="q" id="search" class="q"
+                        value="{{ request.GET.get('q', '') }}" aria-label="{{ _('Search') }}">
+                </form>
+                <div class="section group">
+                    <div class="col span_1_of_2">
+                        <h4>{{ _("Want to recognize an achievement?") }}</h4>
+                        <p>{{ _("Need to reward your community?") }}</p>
+                        {% if not config.BADGER_ALLOW_ADD_ONLY_BY_MOZILLIANS or (not request.user.is_anonymous() and request.user.get_profile().is_vouched_mozillian()) %}
+                            <p><a class="button" href="{{ url('badger.views.create') }}">{{ _("Create a new badge") }}
+                                <i class="fa fa-chevron-right"></i></a></p>
+                        {% else %}
+                            <p>{{ _("This service requires a vouched profile at <a href=\"https://mozillians.org\">mozillians.org</a>.") | fe() }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col span_1_of_2">
+                        <h4>Have a claim code?</h4>
+                        <p>{{ _("Enter it here to get your badge!") }}</p>
+                        <form method="post" action="{{ url('badger.views.claim_deferred_award') }}">
+                            {{ csrf() }}
+                            <p>
+                                <input type="text" size="15" name="code" value="">
+                                <button class="button" type="submit">Claim <i class="fa fa-chevron-right"></i></button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% block content %}
+                <div class="section group">
+                    <div class="col span_1_of_2">
+                        <h3><a href="{{ url('badger.views.badges_list') }}">{{ _('Recently Created Badges') }}</a></h3>
+                        {% with %}
+                            {% set include_new_badge_item=false %}
+                            {% set include_more_badges_item=true %}
+                            {% set cols=3 %}
+                            {% set hide_pagination=true %}
+                            {% set badge_list = badge_list[:5] %}
+                            {% include "badger/includes/badges_list.html" %}
+                        {% endwith %}
+                    </div>
+                    <div class="col span_1_of_2">
+                        <h3><a href="{{ url('badger.views.awards_list') }}">{{ _('Recently Awarded Badges') }}</a></h3>
+                        {% with %}
+                            {% set include_more_awards_item=true %}
+                            {% set cols=3 %}
+                            {% set hide_pagination=true %}
+                            {% set award_list = award_list[:5] %}
+                            {% include "badger/includes/awards_list.html" %}
+                        {% endwith %}
+                    </div>
+                </div>
+                {% if badge_tags %}
+                    <h3>Popular Tags</h3>
+                    <ul class="tags">
+                        {% for item in badge_tags %}
+                            <li><a class="tag" href="{{ url('badger.badges_list', tag_name=item.tag.name) }}">{{ item.tag.name }} <span class="count">{{ item.count }}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </main>
+{% endblock outer_content %}

@@ -1,21 +1,45 @@
-<nav class="pagination">
-    {% if page_obj and page_obj.start_index() != page_obj.end_index() %}
-        <p class="showing">{{_('{start}&ndash;{end} of {total}') | f(start=page_obj.start_index(),end=page_obj.end_index(),total=paginator.count) | safe }}</p>
-    {% endif %}
-    {% if is_paginated %}
-      <ul class="paging">
-        {% if page_obj.number != 1 %}
-            <li class="first"><a href="{{ pagination_base_url }}?page=1&sort={{current_sort}}" title="{{_('Go to the first page')}}">First</a></li>
+{% if not page_obj or page_obj.paginator.num_pages > 1 %}
+    <nav class="pagination">
+        {% if page_obj %}
+            <p class="showing">{{_('Page {page} of {num_pages}') | f(page=page_obj.number, num_pages=page_obj.paginator.num_pages) }}</p>
         {% endif %}
-        {% if page_obj.has_previous() %}
-            <li class="prev"><a href="{{ pagination_base_url }}?page={{ page_obj.previous_page_number() }}&sort={{current_sort}}" title="{{_('Go to the previous page')}}">{{_('Previous')}}</a></li>
+        {% set current_sort = current_sort | default(None) %}
+        {% set pagination_base_url = pagination_base_url | default('') | urlparams(sort=current_sort) %}
+        {% if is_paginated %}
+          <ul class="paging">
+            {%- if page_obj.number != 1 -%}
+                <li class="control first">
+                    <a href="{{ pagination_base_url | urlparams(page=1) }}" title="{{_('Go to the first page')}}">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        <span class="label">{{_('First')}}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if page_obj.has_previous() -%}
+                <li class="control prev">
+                    <a href="{{ pagination_base_url | urlparams(page=page_obj.previous_page_number()) }}" title="{{_('Go to the previous page')}}">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="label">{{_('Previous')}}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if page_obj.has_next() -%}
+                <li class="control next">
+                    <a href="{{ pagination_base_url | urlparams(page=page_obj.next_page_number()) }}" title="{{_('Go to the next page')}}">
+                        <span class="label">{{_('Next')}}</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if page_obj.number != paginator.num_pages -%}
+                <li class="control last">
+                    <a href="{{ pagination_base_url | urlparams(page=paginator.num_pages) }}" title="{{_('Go to the last page')}}">
+                        <span class="label">{{_('Last')}}</span>
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+            {%- endif -%}
+          </ul>
         {% endif %}
-        {% if page_obj.has_next() %}
-            <li class="next"><a href="{{ pagination_base_url }}?page={{ page_obj.next_page_number() }}&sort={{current_sort}}" title="{{_('Go to the next page')}}">{{_('Next')}}</a></li>
-        {% endif %}
-        {% if page_obj.number != paginator.num_pages %}
-            <li class="last"><a href="{{ pagination_base_url }}?page={{ paginator.num_pages }}&sort={{current_sort}}" title="{{_('Go to the last page')}}">{{_('Last')}}</a></li>
-        {% endif %}
-      </ul>
-    {% endif %}
-</nav>
+    </nav>
+{% endif %}
