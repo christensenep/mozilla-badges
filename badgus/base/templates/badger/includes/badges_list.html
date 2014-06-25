@@ -1,4 +1,4 @@
-{% set cols = cols or 1 %}
+{% set cols = cols or 6 %}
 {% set row_index = cycler(*range(cols)) %}
 <div class="sectiong group">
     <ul class="badges grid">
@@ -24,8 +24,11 @@
             </li>
         {%- endif -%}
         {%- if include_more_badges_item -%}
+            {%- if include_more_badges_item == true -%}
+                {%- set include_more_badges_item = url('badger.views.badges_list') -%}
+            {%- endif -%}
             <li class="see-all badge col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
-                <a href="{{ url('badger.views.badges_list') }}" class="card">
+                <a href="{{ include_more_badges_item }}" class="card">
                     <span class="image"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
                     <span class="label"><em>{{ _('See all badges') }}</em></span>
                 </a>

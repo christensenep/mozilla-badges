@@ -9,40 +9,32 @@
 {% endblock %}
 
 {% block content %}
+    <h2>{{ _('Profile: {user}') | f(user=user) }}</h2>
 
-<section class="row-fluid">
-
-    <section class="span4" id="detail">
-        <header class="page-header">
-            <h2>{{ _('Profile: {user}') | f(user=user) }}</h2>
-        </header>
-        <dl class="profile">
-            {% if profile.display_name %}
-                <dt class="display_name">Display name:</dt><dd>{{ profile.display_name }}</dd>
-            {% else %}
-                <dt class="username">Username:</dt><dd>{{ user.username }}</dd>
+    <dl class="profile">
+        {% if profile.display_name %}
+            <dt class="display_name">Display name:</dt><dd>{{ profile.display_name }}</dd>
+        {% else %}
+            <dt class="username">Username:</dt><dd>{{ user.username }}</dd>
+        {% endif %}
+        <dt class="avatar">Avatar:</dt><dd><img class="avatar" src="{{ user_avatar(profile.user) }}" /></dd>
+        {% if profile.location %}
+            <dt class="location">Location:</dt><dd>{{ profile.location }}</dd>
+        {% endif %}
+        {% if profile.bio_html %}
+            <dt class="bio">Bio:</dt><dd>{{ profile.bio_html | safe }}</dd>
+        {% endif %}
+        <dt class="actions">Actions:</dt><dd><ul class="btn-list">
+            {% if profile.allows_edit(request.user) %}
+                <li><a class="btn btn-large btn-primary" href="{{ url('profiles.profile_edit', profile.user.username) }}">{{ _('Edit profile') }}</a>
+                <li><a class="btn btn-large btn-primary" href="{{ url('notification_notices') }}">{{ _("View notifications") }}</a></li>
+                <li><a class="btn btn-large btn-primary" href="{{ url('notification_notice_settings') }}">{{ _("Manage notification settings") }}</a></li>
+                <li><a class="btn btn-large btn-primary" href="{{ url('valet_keys.views.list') }}" title="{{ _("Valet keys are credentials for use with the API") }}">{{ _("Manage valet keys") }}</a></li>
             {% endif %}
-            <dt class="avatar">Avatar:</dt><dd><img class="avatar" src="{{ user_avatar(profile.user) }}" /></dd>
-            {% if profile.location %}
-                <dt class="location">Location:</dt><dd>{{ profile.location }}</dd>
-            {% endif %}
-            {% if profile.bio_html %}
-                <dt class="bio">Bio:</dt><dd>{{ profile.bio_html | safe }}</dd>
-            {% endif %}
-            <dt class="actions">Actions:</dt><dd><ul class="btn-list">
-                {% if profile.allows_edit(request.user) %}
-                    <li><a class="btn btn-large btn-primary" href="{{ url('profiles.profile_edit', profile.user.username) }}">{{ _('Edit profile') }}</a>
-                    <li><a class="btn btn-large btn-primary" href="{{ url('notification_notices') }}">{{ _("View notifications") }}</a></li>
-                    <li><a class="btn btn-large btn-primary" href="{{ url('notification_notice_settings') }}">{{ _("Manage notification settings") }}</a></li>
-                    <li><a class="btn btn-large btn-primary" href="{{ url('valet_keys.views.list') }}" title="{{ _("Valet keys are credentials for use with the API") }}">{{ _("Manage valet keys") }}</a></li>
-                {% endif %}
-            </ul></dd>
-            <dt class="created">Created:</dt><dd>{{ profile.created }}</dd>
-            <dt class="modified">Modified:</dt><dd>{{ profile.modified }}</dd>
-        </dl>
-    </section>
-
-    <section class="span8 related">
+        </ul></dd>
+        <dt class="created">Created:</dt><dd>{{ profile.created }}</dd>
+        <dt class="modified">Modified:</dt><dd>{{ profile.modified }}</dd>
+    </dl>
 
     {# TODO: Move this into Nomination model? #}
     {% if request.user == profile.user or request.user.is_superuser or request.user.is_staff %}
@@ -81,36 +73,21 @@
 
     {% set award_list = user_awards(profile.user) %}
     {% if award_list %}
-    <section id="recent_awards" class="item_flow">
-        <header class="page-header">
-            <h3>
-                <span>{{ _('Recently awarded badges for {user}') | f(user=user) }}</span>
-                <small>(
-                    <a href="{{ url('badger.views.awards_by_user', profile.user.username) }}">More...</a>
-                    <a href="{{ url('badger.feeds.awards_by_user', 'atom', profile.user.username) }}"><img src="{{ static('img/feed-icon-14x14.png') }}" /></a>
-                )</small>
-            </h3>
-        </header>
-        {% include "badger/includes/awards_as_badges_list.html" %}
-    </section>
+        <h3>{{ _('Recently awarded badges for {user}') | f(user=user) }}</h3>
+        {% with award_list = award_list[:11] %}
+            {% set show_user = false %}
+            {% set include_more_awards_item = url('badger.views.awards_by_user', profile.user.username) %}
+            {% include "badger/includes/awards_list.html" %}
+        {% endwith %}
     {% endif %}
 
     {% set badge_list = user_badges(profile.user) %}
     {% if badge_list %}
-    <section id="recent_badges" class="item_flow">
-        <header class="page-header">
-            <h3>
-                <span>{{ _('Badges created by {user}') | f(user=user) }}</span>
-                <small>(
-                    <a href="{{ url('badger.views.badges_by_user', profile.user.username) }}">More...</a>
-                    <a href="{{ url('badger.feeds.badges_by_user', 'atom', profile.user.username) }}"><img src="{{ static('img/feed-icon-14x14.png') }}" /></a>
-                )</small>
-            </h3>
-        </header>
-        {% include "badger/includes/badges_list.html" %}
-    </section>
+        <h3>{{ _('Badges created by {user}') | f(user=user) }}</h3>
+        {% with badge_list = badge_list[:11] %}
+            {% set include_new_badge_item = false %}
+            {% set include_more_badges_item = url('badger.views.badges_by_user', profile.user.username) %}
+            {% include "badger/includes/badges_list.html" %}
+        {% endwith %}
     {% endif %}
-
-    </section>
-
 {% endblock %}

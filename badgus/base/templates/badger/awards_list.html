@@ -18,9 +18,7 @@
             <h2>{{ _("Awarded badges") }}</h2>
         {% endif %}
     </header>
-    {% with cols=6 %}
-        {% include "badger/includes/awards_list.html" %}
-    {% endwith %}
+    {% include "badger/includes/awards_list.html" %}
 </section>
 
 {% endblock %}

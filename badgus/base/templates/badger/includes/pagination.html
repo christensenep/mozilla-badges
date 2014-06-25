@@ -1,4 +1,4 @@
-{% if not page_obj or page_obj.paginator.num_pages > 1 %}
+{% if (not page_obj and is_paginated) or (page_obj and page_obj.paginator.num_pages > 1) %}
     <nav class="pagination">
         {% if page_obj %}
             <p class="showing">{{_('Page {page} of {num_pages}') | f(page=page_obj.number, num_pages=page_obj.paginator.num_pages) }}</p>
