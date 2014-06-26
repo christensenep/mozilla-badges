@@ -58,3 +58,96 @@ input[type=text]:focus {
   display: none;
   visibility: hidden;
 }
+
+
+
+
+
+.basic-form {
+  padding-left: 10em;
+}
+
+.basic-form fieldset {
+  margin-left: -10em;
+  margin-bottom: 2em;
+  padding-left: 10em;
+  border: none;
+  border-top: solid 1px rgba(0,0,0,0.1);
+}
+
+.basic-form legend {
+  font-size: 1.5em;
+  padding: 0 1em;
+  margin-left: -1em;
+}
+
+.basic-form label {
+  display: block;
+  width: 9em;
+  margin-left: -10em;
+  float: left;
+  clear: left;
+  text-align: right;
+  font-weight: bold;
+  padding: 0.15em 0;
+}
+
+.basic-form input[type=checkbox] {
+  vertical-align: middle;
+}
+
+.basic-form input + label {
+  display: inline;
+  width: auto;
+  margin: 0;
+  float: none;
+  clear: none;
+  text-align: inherit;
+  font-weight: inherit;
+  padding: 0;
+}
+
+ul.form {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.form li {
+  margin: 0 0 2em;
+  padding: 2em 0 0;
+  border-top: solid 1px rgba(0,0,0,0.25);
+}
+
+ul.form li:first-child {
+  padding-top: 1em;
+  border-top: none;
+}
+
+ul.form label:first-child {
+  font-weight: bold;
+}
+
+.basic-form textarea,
+ul.form textarea {
+  font: inherit;
+  display: block;
+  height: 6em;
+  max-height: 20em;
+  margin-top: 0.5em;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+ul.form textarea {
+  width: 100%;
+}
+
+.basic-form .helptext,
+ul.form .helptext {
+  font-size: 0.8em;
+  display: block;
+  margin: 0.5em;
+}
+

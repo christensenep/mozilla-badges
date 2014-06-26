@@ -82,7 +82,7 @@
                     <h3>Popular Tags</h3>
                     <ul class="tags">
                         {% for item in badge_tags %}
-                            <li><a class="tag" href="{{ url('badger.badges_list', tag_name=item.tag.name) }}">{{ item.tag.name }} <span class="count">{{ item.count }}</span></a></li>
+                            <li><a class="tag" href="{{ url('badger.badges_list', tag_name=item.tag.name) }}">{{ item.tag.name }} <span class="meta">{{ item.count }}</span></a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}

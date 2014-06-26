@@ -44,7 +44,7 @@
                                                 {% block user_navigation %}
                                                     <div id="nav-user">
                                                         {% if request.user.is_authenticated() %}
-                                                            {% trans user_url=request.user.get_absolute_url(), user_name=request.user, user_email=request.user.email %}
+                                                            {% trans user_url=request.user.get_absolute_url(), user_name=request.user, user_email=request.user.email or '-' %}
                                                                 <a class="signed-in-user" data-email="{{user_email}}" href="{{user_url}}">{{user_name}}</a>
                                                             {% endtrans %}
                                                             {% if notice_unseen_count %}

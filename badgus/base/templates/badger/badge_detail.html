@@ -32,14 +32,37 @@
 {% endblock %}
 
 {% block content %}
+<h2>
+    <a href="{{ url('badger.views.badges_list') }}">{{ _('Badges') }}</a>
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+    {{ badge.title }}
+</h2>
 
+{% include "badger/includes/badge_full.html" %}
+
+{% if award_list %}
+    <h3>{{ _("Recent badge awards") }}</h3>
+    {% with show_badge = false %}
+        {% set include_more_awards_item = url('badger.views.awards_list', badge.slug) %}
+        {% include "badger/includes/awards_list.html" %}
+    {% endwith %}
+{% endif %}
+
+{% if badge.allows_nominate_for(request.user) %}
+    <h3>{{ _("Nominate someone for this badge") }}</h3>
+    <form class="basic-form" id="award_badge" method="post" action="{{ url('badger.views.nominate_for', slug=badge.slug) }}">
+        {{ csrf() }}
+        {{ sections.nominate.form.as_p() }}
+        <p><button type="submit" class="button">{{ _("Submit nominations") }}</button>
+    </form>
+{% endif %}
+
+{#
 <section class="row-fluid">
 
     <section class="span4" id="detail">
         <header class="page-header">
-            <h2 class="badge-title">{{ _("Badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
         </header>
-        {% include "badger/includes/badge_full.html" %}
         {% if not award %}
         <dl class="share">
             <dt>{{ _('Share:') }}</dt>
@@ -198,7 +221,7 @@
      ref.parentNode.insertBefore(js, ref);
    }(document));
 </script>
-
+#}
 {% endblock %}
 
 {% block js %}

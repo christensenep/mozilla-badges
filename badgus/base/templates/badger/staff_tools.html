@@ -6,17 +6,13 @@
 {% endblock %}
 
 {% block content %}
-<section class="grant-multiple">
-    <header class="page-header">
-        <h2>Grant multiple claim codes</h2>
-    </header>
-    <form id="grant_multiple" method="POST" action="" enctype="multipart/form-data">
-        {{ csrf() }}
-        <input type="hidden" name="is_grant" value="1" />
-        <ul>
-            {{ grant_form.as_ul() }}
-            <li><input type="submit" class="btn btn-large btn-primary submit" value="{{ _("Grant badge claims") }}"></li>
-        </ul>
-    </form>
-</section>
+<h2>Grant multiple claim codes</h2>
+
+<form id="grant_multiple" method="post" enctype="multipart/form-data" class="basic-form">
+    {{ csrf() }}
+    <input type="hidden" name="is_grant" value="1">
+    {{ grant_form.as_p() }}
+
+    <p><button type="submit" class="button">{{ _("Grant badge claims") }}</button></p>
+</form>
 {% endblock %}

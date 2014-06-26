@@ -13,17 +13,30 @@
             <li class="award col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 {% if show_user == false %}
                     <a href="{{ award.get_absolute_url() }}" class="card">
-                        <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
+                        <span class="figure">
+                            <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
+                        </span>
                         <span class="label">{{ award.badge.title }}</span>
+                    </a>
+                {% elif show_badge == false %}
+                    <a href="{{ award.get_absolute_url() }}" class="card">
+                        <span class="figure">
+                            <img src="{{ user_avatar(award.user) }}" alt="{{ award.user }}" width="128" height="128" class="image">
+                        </span>
+                        <span class="label">{{ award.user }}</span>
                     </a>
                 {% else %}
                     <a href="{{ award.get_absolute_url() }}" class="card-wrapper">
                         <span class="card card-front">
-                            <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
+                            <span class="figure">
+                                <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
+                            </span>
                             <span class="label">{{ award.badge.title }}</span>
                         </span>
                         <span class="card card-back">
-                            <img src="{{ user_avatar(award.user) }}" width="128" height="128" class="image">
+                            <span class="figure">
+                                <img src="{{ user_avatar(award.user) }}" alt="{{ award.user }}" width="128" height="128" class="image">
+                            </span>
                             <span class="label">{{ award.user }}</span>
                         </span>
                     </a>

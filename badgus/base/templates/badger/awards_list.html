@@ -9,16 +9,14 @@
 {% endblock %}
 
 {% block content %}
-
-<section class="awards_list" class="item_flow">
-    <header class="page-header">
-        {% if badge %}
-            <h2>{{ _("Awarded badges for {badge}") | f(badge=badge) }}</h2>
-        {% else: %}
-            <h2>{{ _("Awarded badges") }}</h2>
-        {% endif %}
-    </header>
-    {% include "badger/includes/awards_list.html" %}
-</section>
+    {% if badge %}
+        <h2>{{ _("Awards for {badge}") | f(badge=badge) }}</h2>
+        {% with show_badge = false %}
+            {% include "badger/includes/awards_list.html" %}
+        {% endwith %}
+    {% else: %}
+        <h2>{{ _("Awards") }}</h2>
+        {% include "badger/includes/awards_list.html" %}
+    {% endif %}
 
 {% endblock %}

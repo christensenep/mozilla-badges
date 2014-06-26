@@ -4,19 +4,38 @@
 
 {% block content %}
 
-<section>
-    <header class="page-header">
-        <h2>{{ _("Edit badge: {title}") | f(title=badge.title) }}</h2>
-    </header>
+<h2>{{ _("Edit badge: {title}") | f(title=badge.title) }}</h2>
 
-    <form id="edit_badge" class="form-horizontal" 
-            method="POST" action="" enctype="multipart/form-data">
-        {{ csrf() }}
-        <ul>
-            {{ form.as_ul() }}
-            <li><input type="submit" class="btn btn-large btn-primary submit" value="{{ _("Save badge") }}"></li>
-        </ul>
-    </form>
-</section>
+<form id="edit_badge" method="post">
+    {{ csrf() }}
+    <div class="panel">
+        <div class="section group">
+            <div class="col span_1_of_3">
+                <img src="{{ badge.image.url }}" width="256" height="256" class="image">
+                <!-- <p><button class="button-sand" name="action" value="edit-picture"><i class="fa fa-pencil"></i> Edit</button></p> -->
+            </div>
+            <div class="meta col span_2_of_3">
+                <ul class="form">
+                    {% for field in form %}
+                        {% if field.name != 'image' %}
+                            <li{% if field.required %} class="required"{% endif %}>
+                                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <p class="helptext">{{ field.help_text }}</p>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <p class="actions">
+            <button class="button" name="action" value="save">{{ _("Save badge") }}</button>
+            <button class="button-sand" name="action" value="save-edit-image">{{ _("Save and edit image") }}</button>
+            <a href="{{ badge.get_absolute_url() }}" class="button-negative">{{ _("Cancel") }}</a>
+        </p>
+    </div>
+</form>
 
 {% endblock %}

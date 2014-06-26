@@ -4,41 +4,30 @@
 
 {% block content %}
 
-<section class="row-fluid">
+<h2>{{ _("Delete badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
+{% with show_actions = false %}
+    {% include "badger/includes/badge_full.html" %}
+{% endwith %}
 
-    <section class="span4" id="detail">
-        <header class="page-header">
-            <h2>{{ _("Badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
-        </header>
-        {% include "badger/includes/badge_full.html" %}
-    </section>
+<h3>{{ _("Are you sure you want to delete this badge?") }}</h3>
 
-    <section class="span8">
-        <header class="page-header">
-            <h2>{{ _("Delete badge") }}</h2>
-        </header>
+<p>{{ _("This action cannot be undone, and this badge will be lost for eternity.") }}</p>
 
-        <form id="delete_badge" method="POST" action="" enctype="multipart/form-data">
-            {{ csrf() }}
-            {% if awards_count %}
-                <p>{% trans badge_url=badge.get_absolute_url(), awards_count=awards_count %}
-                    <span class="label label-warning">Note:</span>
-                    Deleting this badge will also delete 
-                    <a href="{{ badge_url }}"><span class="awards_count">{{awards_count}}</span> award(s)</a>
-                {% endtrans %}</p>
-            {% else %}
-                <p>{% trans %}
-                    <span class="label label-success">Note:</span>
-                    No one has been awarded this badge, yet.
-                {% endtrans %}</p>
-            {% endif %}
-            <p>{{ _("Delete this badge, are you sure?") }}</p>
-            <ul>
-                <li><input type="submit" class="btn btn-large btn-danger submit" value="{{ _("Yes, delete badge") }}"></li>
-            </ul>
-        </form>
-    </section>
+{% if awards_count %}
+    <p class="warning"><i class="fa fa-warning" aria-hidden="true"></i>
+        {% trans href=url('badger.views.awards_list', badge.slug), awards_count=awards_count %}
+            Deleting this badge will also delete 
+            <a href="{{ href }}"><strong>{{ awards_count }}</strong> award(s)</a>
+        {% endtrans %}
+    </p>
+{% endif %}
 
-</section>
+<form method="POST" action="" enctype="multipart/form-data">
+    {{ csrf() }}
+    <p>
+        <input type="submit" class="button-negative" value="{{ _("Yes, delete badge") }}">
+        <a href="{{ badge.get_absolute_url() }}" class="button-sand">{{ _("No thanks") }}</a>
+    </p>
+</form>
 
 {% endblock %}

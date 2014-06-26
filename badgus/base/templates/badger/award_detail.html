@@ -33,23 +33,19 @@
 {% endblock %}
 
 {% block content %}
-<header class="page-header">
-    <h2 class="badge-title">
-        {% if award.user == request.user %}
-            {{ _("Your Awarded Badge: {badge_title}") | f(badge_title=badge.title) }}
-        {% else %}
-            {{ _("Awarded Badge: {badge_title}") | f(badge_title=badge.title) }}
-        {% endif %}
-    </h2>
-</header>
-<section class="row-fluid">
+<h2>
+    {% if award.user == request.user %}
+        {{ _("Your Awarded Badge: {badge_title}") | f(badge_title=badge.title) }}
+    {% else %}
+        {{ _("Awarded Badge: {badge_title}") | f(badge_title=badge.title) }}
+    {% endif %}
+</h2>
 
-    <section class="badge span4">
-        {% include "badger/includes/badge_full.html" %}
-    </section>
+{% include "badger/includes/badge_full.html" %}
 
-    <section class="award span8">
         {% include "badger/includes/award_full.html" %}
+
+{#
         <dl class="share">
             {% if award.allows_delete_by(request.user) %}
             <dt>{{_("Actions:")}}</dt>
@@ -115,6 +111,7 @@
      ref.parentNode.insertBefore(js, ref);
    }(document));
 </script>
+#}
 
 {% endblock %}
 

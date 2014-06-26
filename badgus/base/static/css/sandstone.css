@@ -24,6 +24,10 @@ body {
   color: #333;
 }
 
+a {
+  color: #666;
+}
+
 h2 {
   margin: 0 0 1em;
   font-weight: 100;
@@ -121,6 +125,50 @@ h3 a {
 .hero .search input {
   margin-left: -1.5em;
   padding-left: 1.5em;
+}
+
+.panel {
+  padding: 1.5em;
+  margin: 2em -0.5em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border-radius: 3px;
+  position: relative;
+  color: #484848;
+  border: solid 1px #EEE;
+  background-color: #FFF;
+  overflow: hidden;
+}
+
+.panel img {
+  display: block;
+}
+
+.panel .description {
+  font-size: 1.25em;
+  border-bottom: solid 1px rgba(0,0,0,0.1);
+  margin: 0 0 1em;
+}
+
+.panel .actions {
+  text-align: right;
+  margin: 1em 0 0;
+}
+
+.meta dt {
+  float: left;
+  clear: left;
+  width: 6em;
+  text-align: right;
+  font-weight: bold;
+}
+
+.meta dt:after {
+  content: ":";
+}
+
+.meta dd {
+  margin: 0 0 0 6.5em;
+  padding: 0 0 0.5em 0;
 }
 
 #nav-access {

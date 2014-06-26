@@ -6,25 +6,25 @@
 
 <h2>Edit profile for {{ profile.user }}</h2>
 
-<form id="edit_profile" method="POST" action="" enctype="multipart/form-data">
+<form id="edit_profile" method="post" enctype="multipart/form-data" class="basic-form">
     {{ csrf() }}
 
     {% if user_form %}
         <fieldset>
             <legend>Account</legend>
-            <ul>{{ user_form.as_ul() }}</ul>
+            {{ user_form.as_p() }}
         </fieldset>
     {% endif %}
 
     <fieldset>
         <legend>Profile</legend>
-        <ul>{{ profile_form.as_ul() }}</ul>
+        {{ profile_form.as_p() }}
     </fieldset>
 
-    <ul>
-        <li><input type="submit" class="submit" value="Save"></li>
-    </ul>
-
+    <p>
+        <button type="submit" class="button">{{ _("Save") }}</button>
+        <a href="{{ profile.user.get_absolute_url() }}" class="button-negative">{{ _("Cancel") }}</a>
+    </p>
 </form>
 
 {% endblock %}

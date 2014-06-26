@@ -1,30 +1,75 @@
-<dl class="award">
-    <dt>{{_("Awarded to:")}}</dt>
-    <dd class="awarded_to">
-        <a href="{{ award.user.get_absolute_url() }}" class="username"><img src="{{ user_avatar(award.user) }}" class="avatar" alt="{{ award.user }}" width="128" height="128" />{{ award.user }}</a>
-        {% if request.user == award.user %}
-            <strong>{{ _("(That's you!)") }}</strong>
-        {% endif %}
-    </dd>
+<p>{{ _("Awarded on {date}") | f(date=award.created.date()) }}.</p>
+
+{% if award.description %}
+    <blockquote>
+        <p>{{ award.description | bleach_markup }}</p>
+    </blockquote>
+{% endif %}
+
+<div class="group section text-center">
     {% if award.nomination %}
-        <dt><a href="{{ award.nomination.get_absolute_url() }}">{{_('Nominated by:')}}</a></dt>
-            <dd class="nominated_by"><a href="{{ award.nomination.creator.get_absolute_url() }}" class="username"><img src="{{ user_avatar(award.nomination.creator) }}" class="avatar" alt="{{ award.nomination.creator }}" width="128" height="128" />{{ award.nomination.creator }}</a></dd>
-        <dt>{{_('Approved by:')}}</dt>
-        {% if award.badge.nominations_autoapproved %}
-            <dd class="nomination_approved_by"><span class="autoapproved">{{_('(auto-approved)')}}</span></dd>
-        {% elif award.nomination.approver %}
-            <dd class="nomination_approved_by"><a href="{{ award.nomination.approver.get_absolute_url() }}" class="username"><img src="{{ user_avatar(award.nomination.approver) }}" class="avatar" alt="{{ award.nomination.approver }}" width="128" height="128" />{{ award.nomination.approver }}</a></dd>
-        {% endif %}
+        <div class="col span_1_of_3">
+            <h3>{{_("Awarded to:")}}</h3>
+            <a href="{{ award.user.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(award.user) }}" class="image" alt="{{ award.user }}" width="256" height="256">
+                <span class="label">
+                    {{ award.user }}
+                    {% if request.user == award.user %} - <strong>{{ _("that's you!") }}</strong>{% endif %}
+                </span>
+            </a>
+        </div>
+        <div class="col span_1_of_3">
+            <h3><a href="{{ award.nomination.get_absolute_url() }}">{{_("Nominated by:")}}</h3>
+            <a href="{{ award.nomination.creator.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(award.nomination.creator) }}" class="image" alt="{{ award.nomination.creator }}" width="256" height="256">
+                <span class="label">
+                    {{ award.nomination.creator }}
+                    {% if request.user == award.nomination.creator %} - <strong>{{ _("that's you!") }}</strong>{% endif %}
+                </span>
+            </a>
+        </div>
+        <div class="col span_1_of_3">
+            <h3>{{_("Approved by:")}}</h3>
+            {% if award.badge.nominations_autoapproved %}
+                <span class="card">
+                    <span class="image"><i class="fa fa-user"></i></span>
+                    <span class="label">Auto-approved</span>
+                </span>
+            {% elif award.nomination.approver %}
+                <a href="{{ award.nomination.approver.get_absolute_url() }}" class="card">
+                    <img src="{{ user_avatar(award.nomination.approver) }}" class="image" alt="{{ award.nomination.approver }}" width="256" height="256">
+                    <span class="label">
+                        {{ award.nomination.approver }}
+                        {% if request.user == award.nomination.approver %} - <strong>{{ _("that's you!") }}</strong>{% endif %}
+                    </span>
+                </a>
+            {% else %}
+                <span class="card">
+                    <span class="image"><i class="fa fa-question-circle"></i></span>
+                    <span class="label">Somebody!</span>
+                </span>
+            {% endif %}
+        </div>
     {% else %}
-        <dt>{{_("Awarded by:")}}</dt>
-            <dd class="awarded_by"><a href="{{ award.creator.get_absolute_url() }}" 
-                class="username"><img src="{{ user_avatar(award.creator) }}" class="avatar"
-                    alt="{{ award.creator }}" width="128" height="128" />{{ award.creator }}</a></dd>
+        <div class="col span_1_of_2">
+            <h3>{{_("Awarded to:")}}</h3>
+            <a href="{{ award.user.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(award.user) }}" class="image" alt="{{ award.user }}" width="256" height="256">
+                <span class="label">
+                    {{ award.user }}
+                    {% if request.user == award.user %} - <strong>{{ _("that's you!") }}</strong>{% endif %}
+                </span>
+            </a>
+        </div>
+        <div class="col span_1_of_2">
+            <h3>{{_("Awarded by:")}}</h3>
+            <a href="{{ award.creator.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(award.creator) }}" class="image" alt="{{ award.creator }}" width="256" height="256">
+                <span class="label">
+                    {{ award.creator }}
+                    {% if request.user == award.creator %} - <strong>{{ _("that's you!") }}</strong>{% endif %}
+                </span>
+            </a>
+        </div>
     {% endif %}
-    <dt>{{_("Awarded at:")}}</dt>
-        <dd class="issued">{{ award.created }}</dd>
-    {% if award.description %}
-        <dt>{{_("Explanation:")}}</dt>
-        <dd class="description">{{ award.description | bleach_markup }}</dd>
-    {% endif %}
-</dl>
+</div>
