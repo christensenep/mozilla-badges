@@ -1,5 +1,11 @@
 {% extends "badger/base.html" %}
 
+{% if badge %}
+    {% set TITLE = _("Awards for &lsquo;{badge}&rsquo;") | f(badge=badge) %}
+{% else: %}
+    {% set TITLE = _("Awards") %}
+{% endif %}
+
 {% block pageid %}awards{% endblock %}
 
 {% block extrahead %}
@@ -9,14 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if badge %}
-        <h2>{{ _("Awards for {badge}") | f(badge=badge) }}</h2>
-        {% with show_badge = false %}
-            {% include "badger/includes/awards_list.html" %}
-        {% endwith %}
-    {% else: %}
-        <h2>{{ _("Awards") }}</h2>
-        {% include "badger/includes/awards_list.html" %}
-    {% endif %}
-
+    {% with show_badge = (badge is none) %}
+        {% include "badger/includes/awards.html" %}
+    {% endwith %}
 {% endblock %}

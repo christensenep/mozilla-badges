@@ -1,0 +1,13 @@
+{% extends "badger/includes/badge.html" %}
+
+{% block badge_meta %}
+    {% if deferred_award.email %}
+        <dt>Email address:</dt>
+            <dd><code class="email">{{ deferred_award.email }}</code></dd>
+    {% endif %}
+    <dt class="claim-code">Claim code</dt>
+        <dd class="claim-code"><code>{{ deferred_award.claim_code }}</code></dd>
+{% endblock %}
+
+{% block actions %}
+{% endblock %}

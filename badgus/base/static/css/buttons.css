@@ -1,6 +1,6 @@
-.button,
-.button:link,
-.button:visited {
+.button-positive,
+.button-positive:link,
+.button-positive:visited {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -32,54 +32,54 @@
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.button:hover,
-.button:link:hover,
-.button:visited:hover,
-.button.hover,
-.button:link.hover,
-.button:visited.hover,
-.button:focus,
-.button:link:focus,
-.button:visited:focus,
-.button.focus,
-.button:link.focus,
-.button:visited.focus {
+.button-positive:hover,
+.button-positive:link:hover,
+.button-positive:visited:hover,
+.button-positive.hover,
+.button-positive:link.hover,
+.button-positive:visited.hover,
+.button-positive:focus,
+.button-positive:link:focus,
+.button-positive:visited:focus,
+.button-positive.focus,
+.button-positive:link.focus,
+.button-positive:visited.focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8;
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.button:focus,
-.button:link:focus,
-.button:visited:focus,
-.button.focus,
-.button:link.focus,
-.button:visited.focus {
+.button-positive:focus,
+.button-positive:link:focus,
+.button-positive:visited:focus,
+.button-positive.focus,
+.button-positive:link.focus,
+.button-positive:visited.focus {
   outline-color: #484848;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8, 0 0 0 2px rgba(73, 173, 227, 0.4);
 }
-.button:active,
-.button:link:active,
-.button:visited:active,
-.button.active,
-.button:link.active,
-.button:visited.active {
+.button-positive:active,
+.button-positive:link:active,
+.button-positive:visited:active,
+.button-positive.active,
+.button-positive:link.active,
+.button-positive:visited.active {
   box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 6px rgba(0, 0, 0, 0.2), inset 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.button.insensitive,
-.button:link.insensitive,
-.button:visited.insensitive,
-.button.insensitive:hover,
-.button:link.insensitive:hover,
-.button:visited.insensitive:hover,
-.button.insensitive:focus,
-.button:link.insensitive:focus,
-.button:visited.insensitive:focus {
+.button-positive.insensitive,
+.button-positive:link.insensitive,
+.button-positive:visited.insensitive,
+.button-positive.insensitive:hover,
+.button-positive:link.insensitive:hover,
+.button-positive:visited.insensitive:hover,
+.button-positive.insensitive:focus,
+.button-positive:link.insensitive:focus,
+.button-positive:visited.insensitive:focus {
   background-color: #9ca3aa;
   background-repeat: repeat-x;
   background-image: -webkit-linear-gradient(top, #bfc7cd, #9ca3aa);
@@ -454,25 +454,25 @@
   text-shadow: 0 1px #fff;
   box-shadow: 0 1px 1px rgba(255, 255, 255, 0.75), 0 1px 3px rgba(0, 0, 0, 0.1) inset;
 }
-.button,
+.button-positive,
 .button-white {
   cursor: pointer;
 }
-.button small,
+.button-positive small,
 .button-white small {
   display: block;
 }
-.button.arrow span,
+.button-positive.arrow span,
 .button-blue.arrow span,
 .button-white.arrow span {
   display: block;
   margin-right: -12px;
   padding: 0 30px 0 0;
-  background: url(/media/img/sandstone/buttons/arrow-go-r.png) right center no-repeat;
+  background: url(/media/img/sandstone.button-positives/arrow-go-r.png) right center no-repeat;
 }
-.button-sand,
-.button-sand:link,
-.button-sand:visited {
+.button,
+.button:link,
+.button:visited {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -516,54 +516,54 @@
   color: #0096dd;
   text-shadow: none;
 }
-.button-sand:hover,
-.button-sand:link:hover,
-.button-sand:visited:hover,
-.button-sand.hover,
-.button-sand:link.hover,
-.button-sand:visited.hover,
-.button-sand:focus,
-.button-sand:link:focus,
-.button-sand:visited:focus,
-.button-sand.focus,
-.button-sand:link.focus,
-.button-sand:visited.focus {
+.button:hover,
+.button:link:hover,
+.button:visited:hover,
+.button.hover,
+.button:link.hover,
+.button:visited.hover,
+.button:focus,
+.button:link:focus,
+.button:visited:focus,
+.button.focus,
+.button:link.focus,
+.button:visited.focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8;
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.button-sand:focus,
-.button-sand:link:focus,
-.button-sand:visited:focus,
-.button-sand.focus,
-.button-sand:link.focus,
-.button-sand:visited.focus {
+.button:focus,
+.button:link:focus,
+.button:visited:focus,
+.button.focus,
+.button:link.focus,
+.button:visited.focus {
   outline-color: #484848;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8, 0 0 0 2px rgba(73, 173, 227, 0.4);
 }
-.button-sand:active,
-.button-sand:link:active,
-.button-sand:visited:active,
-.button-sand.active,
-.button-sand:link.active,
-.button-sand:visited.active {
+.button:active,
+.button:link:active,
+.button:visited:active,
+.button.active,
+.button:link.active,
+.button:visited.active {
   box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 6px rgba(0, 0, 0, 0.2), inset 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.button-sand.insensitive,
-.button-sand:link.insensitive,
-.button-sand:visited.insensitive,
-.button-sand.insensitive:hover,
-.button-sand:link.insensitive:hover,
-.button-sand:visited.insensitive:hover,
-.button-sand.insensitive:focus,
-.button-sand:link.insensitive:focus,
-.button-sand:visited.insensitive:focus {
+.button.insensitive,
+.button:link.insensitive,
+.button:visited.insensitive,
+.button.insensitive:hover,
+.button:link.insensitive:hover,
+.button:visited.insensitive:hover,
+.button.insensitive:focus,
+.button:link.insensitive:focus,
+.button:visited.insensitive:focus {
   background-color: #9ca3aa;
   background-repeat: repeat-x;
   background-image: -webkit-linear-gradient(top, #bfc7cd, #9ca3aa);
@@ -578,17 +578,17 @@
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2);
   color: #eee;
 }
-.button-sand small,
-.button-sand:link small,
-.button-sand:visited small {
+.button small,
+.button:link small,
+.button:visited small {
   display: block;
 }
-.button-sand:hover,
-.button-sand:link:hover,
-.button-sand:visited:hover,
-.button-sand:focus,
-.button-sand:link:focus,
-.button-sand:visited:focus {
+.button:hover,
+.button:link:hover,
+.button:visited:hover,
+.button:focus,
+.button:link:focus,
+.button:visited:focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #ffffff;
   color: #00539f;
 }
@@ -607,69 +607,69 @@
   *display: inline;
   *zoom: 1;
 }
-.button-list li .button-sand {
+.button-list li .button {
   border-radius: 0;
   border-left-width: 0;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.5) inset, -1px 0 0 0 rgba(255, 255, 255, 0.5) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
   min-width: 0;
 }
-.button-list li:first-child .button-sand {
+.button-list li:first-child .button {
   border-top-left-radius: 0.25em;
   border-bottom-left-radius: 0.25em;
   border-left-width: 1px;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.5) inset, 1px 0 0 0 rgba(255, 255, 255, 0.5) inset, -1px 0 0 0 rgba(255, 255, 255, 0.5) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
 }
-.button-list li:first-child .button-sand:hover,
-.button-list li:first-child .button-sand:focus {
+.button-list li:first-child .button:hover,
+.button-list li:first-child .button:focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #ffffff;
 }
-.button-list li:last-child .button-sand {
+.button-list li:last-child .button {
   border-top-right-radius: 0.25em;
   border-bottom-right-radius: 0.25em;
 }
-.dark .button-sand,
-.dark .button-sand:link,
-.dark .button-sand:visited {
+.dark .button,
+.dark .button:link,
+.dark .button:visited {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2) inset, 1px 0 0 0 rgba(255, 255, 255, 0.2) inset, -1px 0 0 0 rgba(255, 255, 255, 0.2) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
 }
-.dark .button-sand:hover,
-.dark .button-sand:link:hover,
-.dark .button-sand:visited:hover,
-.dark .button-sand:focus,
-.dark .button-sand:link:focus,
-.dark .button-sand:visited:focus {
+.dark .button:hover,
+.dark .button:link:hover,
+.dark .button:visited:hover,
+.dark .button:focus,
+.dark .button:link:focus,
+.dark .button:visited:focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px rgba(255, 255, 255, 0.2);
   color: #0096dd;
 }
-.dark .button-list li .button-sand {
+.dark .button-list li .button {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2) inset, -1px 0 0 0 rgba(255, 255, 255, 0.2) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
 }
-.dark .button-list li:first-child .button-sand {
+.dark .button-list li:first-child .button {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2) inset, 1px 0 0 0 rgba(255, 255, 255, 0.2) inset, -1px 0 0 0 rgba(255, 255, 255, 0.2) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.1) inset;
 }
-.dark .button-list li:first-child .button-sand:hover,
-.dark .button-list li:first-child .button-sand:focus {
+.dark .button-list li:first-child .button:hover,
+.dark .button-list li:first-child .button:focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px rgba(255, 255, 255, 0.2);
   color: #0096dd;
 }
-.download-button .unrecognized-download,
-.download-button .unsupported-download {
+.download.button-positive .unrecognized-download,
+.download.button-positive .unsupported-download {
   display: none;
 }
-.download-button {
+.download.button-positive {
   display: inline-block;
   *display: inline;
   *zoom: 1;
   vertical-align: top;
 }
-.download-button ul {
+.download.button-positive ul {
   margin: 0;
 }
-.download-button ul li {
+.download.button-positive ul li {
   list-style-type: none;
   margin: 0;
 }
-.download-button .download-link {
+.download.button-positive .download-link {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -719,32 +719,32 @@
   font-size: 16px;
   border-radius: 6px;
 }
-.download-button .download-link:hover,
-.download-button .download-link.hover,
-.download-button .download-link:focus,
-.download-button .download-link.focus {
+.download.button-positive .download-link:hover,
+.download.button-positive .download-link.hover,
+.download.button-positive .download-link:focus,
+.download.button-positive .download-link.focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8;
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.download-button .download-link:focus,
-.download-button .download-link.focus {
+.download.button-positive .download-link:focus,
+.download.button-positive .download-link.focus {
   outline-color: #484848;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #3089d8, 0 0 0 2px rgba(73, 173, 227, 0.4);
 }
-.download-button .download-link:active,
-.download-button .download-link.active {
+.download.button-positive .download-link:active,
+.download.button-positive .download-link.active {
   box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 6px rgba(0, 0, 0, 0.2), inset 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: all linear 0.25s;
   transition: all linear 0.25s;
 }
-.download-button .download-link.insensitive,
-.download-button .download-link.insensitive:hover,
-.download-button .download-link.insensitive:focus {
+.download.button-positive .download-link.insensitive,
+.download.button-positive .download-link.insensitive:hover,
+.download.button-positive .download-link.insensitive:focus {
   background-color: #9ca3aa;
   background-repeat: repeat-x;
   background-image: -webkit-linear-gradient(top, #bfc7cd, #9ca3aa);
@@ -759,30 +759,30 @@
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2);
   color: #eee;
 }
-.download-button .download-link small {
+.download.button-positive .download-link small {
   display: block;
 }
-.download-button .download-link:hover {
+.download.button-positive .download-link:hover {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 2px #83c822;
 }
-.download-button .download-link:focus {
+.download.button-positive .download-link:focus {
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(129, 188, 46, 0.4);
 }
-.download-button .download-link .download-content {
+.download.button-positive .download-link .download-content {
   display: block;
   position: relative;
   color: #b8e779;
   margin-left: -54px;
   _margin-left: 0;
-  background: url(/media/img/sandstone/buttons/firefox-large.png?2013-06) 0 0 no-repeat;
+  background: url(/media/img/sandstone.button-positives/firefox-large.png?2013-06) 0 0 no-repeat;
   _background-color: #659324;
   min-height: 82px;
   margin-bottom: -12px;
   _margin-bottom: 0;
   padding: 10px 12px 16px 119px;
 }
-.download-button .download-link .download-title,
-.download-button .download-link .download-title span {
+.download.button-positive .download-link .download-title,
+.download.button-positive .download-link .download-title span {
   display: block;
   color: #fff;
   font-size: 30px;
@@ -792,14 +792,14 @@
   margin-bottom: 10px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.download-button .download-link .download-title span {
+.download.button-positive .download-link .download-title span {
   padding-top: 0;
   margin-bottom: 5px;
 }
-.download-button .download-link .download-subtitle {
+.download.button-positive .download-link .download-subtitle {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.download-button .download-link .download-lang {
+.download.button-positive .download-link .download-lang {
   display: block;
   color: #346012;
   padding-top: 2px;
@@ -807,7 +807,7 @@
   line-height: 100%;
   text-shadow: 0 1px rgba(255, 255, 255, 0.2);
 }
-.download-button .download-link .download-platform {
+.download.button-positive .download-link .download-platform {
   display: none;
 }
 .download-button-small .download-link {
@@ -823,7 +823,7 @@
   _margin-left: 0;
   margin-top: -2px;
   margin-bottom: -7px;
-  background-image: url(/media/img/sandstone/buttons/firefox-small.png?2013-06);
+  background-image: url(/media/img/sandstone.button-positives/firefox-small.png?2013-06);
   min-height: 45px;
   padding: 10px 20px 10px 73px;
   overflow: visible;
@@ -858,36 +858,36 @@
 .download-button-aurora.download-button-small .download-link .download-title span {
   font-size: 20px;
 }
-.download-button.download-button-beta.download-button-small .download-list .os_android .download-link .download-title span,
-.download-button.download-button-aurora.download-button-small .download-list .os_android .download-link .download-title span,
-.download-button.download-button-mobile.download-button-aurora.download-button-small .download-link .download-title span,
-.download-button.download-button-mobile.download-button-beta.download-button-small .download-link .download-title span {
+.download.button-positive.download-button-beta.download-button-small .download-list .os_android .download-link .download-title span,
+.download.button-positive.download-button-aurora.download-button-small .download-list .os_android .download-link .download-title span,
+.download.button-positive.download-button-mobile.download-button-aurora.download-button-small .download-link .download-title span,
+.download.button-positive.download-button-mobile.download-button-beta.download-button-small .download-link .download-title span {
   font-size: 18px;
   letter-spacing: -0.01em;
 }
 .download-button-large.beta .download-link .download-content {
-  background-image: url(/media/img/sandstone/buttons/beta-large.png?2013-06);
+  background-image: url(/media/img/sandstone.button-positives/beta-large.png?2013-06);
 }
 .download-button-small.beta .download-link .download-content {
-  background-image: url(/media/img/sandstone/buttons/beta-small.png?2013-06);
+  background-image: url(/media/img/sandstone.button-positives/beta-small.png?2013-06);
 }
 .download-button-large.aurora .download-link .download-content {
-  background-image: url(/media/img/sandstone/buttons/aurora-large.png?2013-06);
+  background-image: url(/media/img/sandstone.button-positives/aurora-large.png?2013-06);
 }
 .download-button-small.aurora .download-link .download-content {
-  background-image: url(/media/img/sandstone/buttons/aurora-small.png?2013-06);
+  background-image: url(/media/img/sandstone.button-positives/aurora-small.png?2013-06);
 }
-.download-button.download-button-noicon .download-link {
+.download.button-positive.download-button-noicon .download-link {
   width: 250px;
   margin-left: auto;
 }
-.download-button.download-button-noicon .download-link .download-content {
+.download.button-positive.download-button-noicon .download-link .download-content {
   margin-left: auto;
   padding-left: 55px;
-  background-image: url(/media/img/sandstone/buttons/download-arrow.png);
+  background-image: url(/media/img/sandstone.button-positives/download-arrow.png);
   background-position: 15px 30px;
 }
-.download-button.download-button-noicon .download-link .download-subtitle {
+.download.button-positive.download-button-noicon .download-link .download-subtitle {
   margin-right: auto;
 }
 .download-button-noicon .download-list .os_android .download-link .download-title span,
@@ -895,43 +895,43 @@
   padding-top: 7px;
 }
 .download-button-small.download-button-noicon .download-link .download-content {
-  background-image: url(/media/img/sandstone/buttons/download-arrow-small.png);
+  background-image: url(/media/img/sandstone.button-positives/download-arrow-small.png);
   background-position: 15px 18px;
 }
 .download-button-small.download-button-noicon .download-list .os_android .download-link .download-title span,
 .download-button-small.download-button-mobile.download-button-noicon .download-link .download-title span {
   padding-top: 0;
 }
-.download-button .os_linux,
-.download-button .os_linux64,
+.download.button-positive .os_linux,
+.download.button-positive .os_linux64,
 .linux.x86.x64 .download-list .os_linux,
-.download-button .os_windows,
-.download-button .os_osx,
-.download-button .os_android,
+.download.button-positive .os_windows,
+.download.button-positive .os_osx,
+.download.button-positive .os_android,
 .no-js .download-list,
 .other .download-list {
   display: none !important;
 }
-.linux .download-button .os_linux,
-.linux.x86.x64 .download-button .os_linux64,
-.windows .download-button .os_windows,
-.osx .download-button .os_osx,
-.android .download-button .os_android,
+.linux .download.button-positive .os_linux,
+.linux.x86.x64 .download.button-positive .os_linux64,
+.windows .download.button-positive .os_windows,
+.osx .download.button-positive .os_osx,
+.android .download.button-positive .os_android,
 .download-button-mobile .os_android,
 .android .download-button-desktop .download-list,
 .android .download-button-desktop small.os_windows,
 .no-js .download-button-mobile .download-list,
 .other .download-button-mobile .download-list,
-.other .download-button small.os_windows {
+.other .download.button-positive small.os_windows {
   display: block !important;
 }
-.ios .download-button .unsupported-download,
-.oldwin .download-button .unsupported-download,
-.oldmac .download-button .unsupported-download {
+.ios .download.button-positive .unsupported-download,
+.oldwin .download.button-positive .unsupported-download,
+.oldmac .download.button-positive .unsupported-download {
   display: block;
   max-width: 250px;
 }
-.download-button small.download-other,
+.download.button-positive small.download-other,
 .other .download-button-mobile small.download-other,
 .android .download-button-desktop small.download-other {
   font-family: 'Open Sans', sans-serif;
@@ -941,45 +941,45 @@
   margin-top: 6px;
   color: #bbbbbb;
 }
-.download-button small.download-other a:link,
+.download.button-positive small.download-other a:link,
 .other .download-button-mobile small.download-other a:link,
 .android .download-button-desktop small.download-other a:link,
-.download-button small.download-other a:visited,
+.download.button-positive small.download-other a:visited,
 .other .download-button-mobile small.download-other a:visited,
 .android .download-button-desktop small.download-other a:visited {
   color: #999;
 }
-.no-js .download-button small.download-other,
-.other .download-button small.download-other,
+.no-js .download.button-positive small.download-other,
+.other .download.button-positive small.download-other,
 .android .download-button-desktop small.download-other {
   text-align: left;
 }
-.other .download-button .unrecognized-download,
+.other .download.button-positive .unrecognized-download,
 .android .download-button-desktop .unrecognized-download {
   display: block;
 }
-.download-button .download-dumb {
+.download.button-positive .download-dumb {
   text-align: left;
 }
-.download-button .download-dumb h4 {
+.download.button-positive .download-dumb h4 {
   text-shadow: none;
   margin: 0 0 6px 0;
   font-size: 18px;
 }
-.download-button .download-dumb ul li {
+.download.button-positive .download-dumb ul li {
   display: inline;
 }
-.download-button .download-dumb small {
+.download.button-positive .download-dumb small {
   font-size: 11px;
   letter-spacing: normal;
 }
-.download-button .download-dumb .button-green {
+.download.button-positive .download-dumb .button-green {
   padding-left: 6px;
   padding-right: 6px;
   margin-left: 3px;
   margin-bottom: 3px;
 }
-.download-button .download-list .os_android .download-link .download-title,
+.download.button-positive .download-list .os_android .download-link .download-title,
 .download-button-mobile .download-link .download-title {
   padding-top: 0;
   margin-bottom: 5px;
@@ -987,7 +987,7 @@
   color: #346012;
   text-shadow: 0 1px rgba(255, 255, 255, 0.2);
 }
-.download-button .download-list .os_android .download-link .download-subtitle,
+.download.button-positive .download-list .os_android .download-link .download-subtitle,
 .download-button-mobile .download-link .download-subtitle {
   display: block;
   position: static;
@@ -999,8 +999,8 @@
   letter-spacing: normal;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.download-button.download-button-small .download-list .os_android .download-link .download-title,
-.download-button.download-button-small.download-button-mobile .download-link .download-title {
+.download.button-positive.download-button-small .download-list .os_android .download-link .download-title,
+.download.button-positive.download-button-small.download-button-mobile .download-link .download-title {
   padding-top: 0;
   margin-bottom: 5px;
   font-size: 13px;
@@ -1008,13 +1008,13 @@
   text-shadow: 0 1px rgba(255, 255, 255, 0.2);
   letter-spacing: normal;
 }
-.download-button.download-button-small .download-list .os_android .download-link .download-title span,
-.download-button.download-button-small.download-button-mobile .download-link .download-title span {
+.download.button-positive.download-button-small .download-list .os_android .download-link .download-title span,
+.download.button-positive.download-button-small.download-button-mobile .download-link .download-title span {
   font-size: 22px;
   margin-bottom: 0;
 }
-.download-button.download-button-small .download-list .os_android .download-link .download-subtitle,
-.download-button.download-button-small.download-button-mobile .download-link .download-subtitle {
+.download.button-positive.download-button-small .download-list .os_android .download-link .download-subtitle,
+.download.button-positive.download-button-small.download-button-mobile .download-link .download-subtitle {
   position: absolute;
   top: 15px;
   right: 10px;
@@ -1022,21 +1022,21 @@
   width: 85px;
   margin-right: 0;
 }
-.download-button .download-list .os_android.armv6,
-.download-button .download-list .os_android.x86,
-.download-button .download-other.os_android .armv7,
-.android.armv6 .download-button .download-list .os_android.armv7,
-.android.armv6 .download-button .download-other.os_android .armv6,
-.android.x86 .download-button .download-list .os_android.armv7,
-.android.x86 .download-button .download-other.os_android .x86 {
+.download.button-positive .download-list .os_android.armv6,
+.download.button-positive .download-list .os_android.x86,
+.download.button-positive .download-other.os_android .armv7,
+.android.armv6 .download.button-positive .download-list .os_android.armv7,
+.android.armv6 .download.button-positive .download-other.os_android .armv6,
+.android.x86 .download.button-positive .download-list .os_android.armv7,
+.android.x86 .download.button-positive .download-other.os_android .x86 {
   display: none !important;
 }
-.android.armv6 .download-button .download-list .os_android.armv6,
-.android.x86 .download-button .download-list .os_android.x86 {
+.android.armv6 .download.button-positive .download-list .os_android.armv6,
+.android.x86 .download.button-positive .download-list .os_android.x86 {
   display: block !important;
 }
-.android.armv6 .download-button .download-other.os_android .armv7,
-.android.x86 .download-button .download-other.os_android .armv7 {
+.android.armv6 .download.button-positive .download-other.os_android .armv7,
+.android.x86 .download.button-positive .download-other.os_android .armv7 {
   display: inline !important;
 }
 /* {{{ l10n tweaks */
@@ -1060,33 +1060,33 @@ html[lang="gd"] .download-button-beta.download-button-small .download-link .down
 html[lang="mk"] .download-button-beta.download-button-small .download-link .download-subtitle {
   padding-right: 50px;
 }
-html[lang="gd"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="mk"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="gd"] .download-button.download-button-small.download-button-mobile .download-subtitle,
-html[lang="mk"] .download-button.download-button-small.download-button-mobile .download-subtitle {
+html[lang="gd"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="mk"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="gd"] .download.button-positive.download-button-small.download-button-mobile .download-subtitle,
+html[lang="mk"] .download.button-positive.download-button-small.download-button-mobile .download-subtitle {
   padding-right: 0;
 }
-html[lang="ml"] .download-button .download-link .download-title,
-html[lang="ml"] .download-button .download-link .download-title span {
+html[lang="ml"] .download.button-positive .download-link .download-title,
+html[lang="ml"] .download.button-positive .download-link .download-title span {
   font-size: 26px;
   line-height: 1.2em;
 }
-html[lang="my"] .download-button .download-link .download-title,
-html[lang="te"] .download-button .download-link .download-title,
-html[lang="my"] .download-button .download-link .download-title span,
-html[lang="te"] .download-button .download-link .download-title span {
+html[lang="my"] .download.button-positive .download-link .download-title,
+html[lang="te"] .download.button-positive .download-link .download-title,
+html[lang="my"] .download.button-positive .download-link .download-title span,
+html[lang="te"] .download.button-positive .download-link .download-title span {
   line-height: 1.4em;
 }
-html[lang="as"] .download-button.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
-html[lang="ml"] .download-button.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
-html[lang="ms"] .download-button.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
-html[lang="ta"] .download-button.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
-html[lang="te"] .download-button.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
-html[lang="as"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="ml"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="ms"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="ta"] .download-button.download-button-small .download-list .os_android .download-subtitle,
-html[lang="te"] .download-button.download-button-small .download-list .os_android .download-subtitle {
+html[lang="as"] .download.button-positive.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
+html[lang="ml"] .download.button-positive.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
+html[lang="ms"] .download.button-positive.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
+html[lang="ta"] .download.button-positive.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
+html[lang="te"] .download.button-positive.download-button-beta.download-button-mobile.download-button-small .download-subtitle,
+html[lang="as"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="ml"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="ms"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="ta"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle,
+html[lang="te"] .download.button-positive.download-button-small .download-list .os_android .download-subtitle {
   width: auto;
   position: relative;
   top: 0;

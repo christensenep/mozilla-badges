@@ -1,5 +1,7 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = award.__str__() %}
+
 {% set user = award.user %}
 {% set award_url = request.build_absolute_uri(url('badger.views.award_detail', award.badge.slug, award.id)) %}
 {% if award.image %}
@@ -14,27 +16,18 @@
 {% block pageid %}award_delete{% endblock %}
 
 {% block content %}
-<header class="page-header">
-    <h2>{{ _("Delete Award") }}</h2>
-</header>
-<section class="row-fluid">
+    {% with show_actions = false %}
+        {% include "badger/includes/badge_awarded.html" %}
+    {% endwith %}
 
-    <section class="badge span4">
-        {% include "badger/includes/badge_full.html" %}
-    </section>
+    <h3>{{ _("Are you sure you want to delete this award?") }}</h3>
 
-    <section class="award span8">
-
-        <form id="delete_award" method="POST" action="" enctype="multipart/form-data">
-            {{ csrf() }}
-            <p><strong>{{ _("Delete this award, are you sure?") }}</strong></p>
-            <ul>
-                <li><input type="submit" class="btn btn-large btn-danger submit" value="{{ _("Yes, delete award") }}"></li>
-            </ul>
-        </form>
-
-        {% include "badger/includes/award_full.html" %}
-    </section>
-
-</section>
+    <form method="post">
+        {{ csrf() }}
+        <p>{{ _("This action cannot be undone, and this award will be lost for eternity.") }}</p>
+        <p>
+            <input type="submit" class="button-negative" value="{{ _("Yes, delete award") }}">
+            <a href="{{ award.get_absolute_url() }}" class="button">{{ _("No thanks") }}</a>
+        </p>
+    </form>
 {% endblock %}

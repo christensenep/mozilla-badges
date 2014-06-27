@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set TITLE = profile.user.__str__() %}
+
 {% block pageid %}profile_detail{% endblock %}
 
 {% block extrahead %}
@@ -9,8 +11,6 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ _('Profile: {user}') | f(user=user) }}</h2>
-
     <div class="panel">
         <div class="section group">
             <div class="col span_1_of_3">
@@ -27,10 +27,10 @@
                         <dt class="location">{{_("Location")}}</dt>
                             <dd>{{ profile.location }}</dd>
                     {% endif %}
-                    <dt class="created">{{_("Created")}}</dt>
+                    <dt class="joined">{{_("Joined")}}</dt>
                         <dd>{{ profile.created.date() }}</dd>
                     {% if profile.created.date() != profile.modified.date() %}
-                        <dt class="modified">{{_("Modified")}}</dt>
+                        <dt class="updated">{{_("Last Updated")}}</dt>
                             <dd>{{ profile.modified.date() }}</dd>
                     {% endif %}
                 </dl>
@@ -38,11 +38,11 @@
         </div>
         {% if profile.allows_edit(request.user) %}
             <p class="actions">
-                <a class="button" href="{{ url('profiles.profile_edit', profile.user.username) }}">{{ _('Edit profile') }}</a>
+                <a class="button-positive" href="{{ url('profiles.profile_edit', profile.user.username) }}">{{ _('Edit profile') }}</a>
                 {% if request.user == profile.user %}
-                    <a class="button-sand" href="{{ url('notification_notices') }}">{{ _("View notifications") }}</a>
-                    {# <a class="button-sand" href="{{ url('notification_notice_settings') }}">{{ _("Manage notification settings") }}</a> #}
-                    <a class="button-sand" href="{{ url('valet_keys.views.list') }}" title="{{ _("Valet keys are credentials for use with the API") }}">{{ _("Manage valet keys") }}</a>
+                    <a class="button" href="{{ url('notification_notices') }}">{{ _("View notifications") }}</a>
+                    {# <a class="button" href="{{ url('notification_notice_settings') }}">{{ _("Manage notification settings") }}</a> #}
+                    <a class="button" href="{{ url('valet_keys.views.list') }}" title="{{ _("Valet keys are credentials for use with the API") }}">{{ _("Manage valet keys") }}</a>
                 {% endif %}
             </p>
         {% endif %}
@@ -119,7 +119,7 @@
         {% with award_list = award_list[:11] %}
             {% set show_user = false %}
             {% set include_more_awards_item = url('badger.views.awards_by_user', profile.user.username) %}
-            {% include "badger/includes/awards_list.html" %}
+            {% include "badger/includes/awards.html" %}
         {% endwith %}
     {% endif %}
 
@@ -133,7 +133,7 @@
         {% with badge_list = badge_list[:11] %}
             {% set include_new_badge_item = false %}
             {% set include_more_badges_item = url('badger.views.badges_by_user', profile.user.username) %}
-            {% include "badger/includes/badges_list.html" %}
+            {% include "badger/includes/badges.html" %}
         {% endwith %}
     {% endif %}
 {% endblock %}

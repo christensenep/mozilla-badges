@@ -1,10 +1,10 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = _("Edit &lsquo;{badge_title}&rsquo;") | f(badge_title=badge.title) %}
+
 {% block pageid %}badge_edit{% endblock %}
 
 {% block content %}
-
-<h2>{{ _("Edit badge: {title}") | f(title=badge.title) }}</h2>
 
 <form id="edit_badge" method="post">
     {{ csrf() }}
@@ -12,7 +12,7 @@
         <div class="section group">
             <div class="col span_1_of_3">
                 <img src="{{ badge.image.url }}" width="256" height="256" class="image">
-                <!-- <p><button class="button-sand" name="action" value="edit-picture"><i class="fa fa-pencil"></i> Edit</button></p> -->
+                <!-- <p><button class="button-positive" name="action" value="edit-picture"><i class="fa fa-pencil"></i> Edit</button></p> -->
             </div>
             <div class="meta col span_2_of_3">
                 <ul class="form">
@@ -31,8 +31,8 @@
             </div>
         </div>
         <p class="actions">
-            <button class="button" name="action" value="save">{{ _("Save badge") }}</button>
-            <button class="button-sand" name="action" value="save-edit-image">{{ _("Save and edit image") }}</button>
+            <button class="button-positive" name="action" value="save">{{ _("Save badge") }}</button>
+            <button class="button" name="action" value="save-edit-image">{{ _("Save and edit image") }}</button>
             <a href="{{ badge.get_absolute_url() }}" class="button-negative">{{ _("Cancel") }}</a>
         </p>
     </div>

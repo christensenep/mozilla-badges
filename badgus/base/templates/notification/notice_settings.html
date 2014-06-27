@@ -1,44 +1,40 @@
 {% extends "notification/base.html" %}
 
-{% block headtitle %}{{ _("Notification Settings") }}{% endblock %}
+{% set TITLE = _("Notification Settings") %}
 
 {% block content %}
-    
-    <section class="notice_settings">
-        <header class="page-header">
-            <h1>{{ _("Notification Settings") }}</h1>
-        </header>
-        
-       <p>
-            {{ _("Primary email") }}:<br />
-            <b>{{ user.email }}</b><br />
-       </p>
-        
-        <form method="POST" action="">
-            {{ csrf() }}
-            <table class="notice_settings">
+   <p>{{ _("Primary email") }}: <strong>{{ user.email }}</strong></p>
+
+    <form method="post">
+        {{ csrf() }}
+        <table class="form">
+            <thead>
                 <tr>
                     <th>{{ _("Notification Type") }}</th>
                     {% for header in notice_settings.column_headers %}
                         <th>{{ header }}</th>
                     {% endfor %}
                 </tr>
+            </thead>
+            <tbody>
                 {% for row in notice_settings.rows %}
                     <tr>
-                        <td>{{ _(row.notice_type.display) }}<br/>
-                            <span class="notice_type_description">{{ _(row.notice_type.description) }}</span>
-                        </td>
+                        <th>
+                            <label for="settings_{{ row.cells[0].0 }}">{{ _(row.notice_type.display) }}<br/>
+                                <span class="helptext">{{ _(row.notice_type.description) }}</span></label>
+                        </th>
                         {% for cell in row.cells %}
-                            <td>
-                                <input type="checkbox" name="{{ cell.0 }}" {% if cell.1 %}checked="yes"{% endif %}/>
+                            <td class="text-center">
+                                <input type="checkbox" id="settings_{{ cell.0 }}" name="{{ cell.0 }}" {% if cell.1 %}checked="yes"{% endif %}/>
                             </td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td><input type="submit" value="{{ _("Change") }}" /></td>
-                </tr>
-            </table>
-        </form>
-    </section>
+            </tbody>
+        </table>
+        <p>
+            <button class="button-positive" type="submit">{{ _("Update") }}</button>
+            <a href="{{ url('notification_notices') }}" class="button-negative">Cancel</a>
+        </p>
+    </form>
 {% endblock %}

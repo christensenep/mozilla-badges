@@ -1,33 +1,32 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = _("Delete &lsquo;{badge_title}&rsquo;") | f(badge_title=badge.title) %}
+
 {% block pageid %}badge_delete{% endblock %}
 
 {% block content %}
+    {% with show_actions = false %}
+        {% include "badger/includes/badge.html" %}
+    {% endwith %}
 
-<h2>{{ _("Delete badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
-{% with show_actions = false %}
-    {% include "badger/includes/badge_full.html" %}
-{% endwith %}
+    <h3>{{ _("Are you sure you want to delete this badge?") }}</h3>
 
-<h3>{{ _("Are you sure you want to delete this badge?") }}</h3>
+    <p>{{ _("This action cannot be undone, and this badge will be lost for eternity.") }}</p>
 
-<p>{{ _("This action cannot be undone, and this badge will be lost for eternity.") }}</p>
+    {% if awards_count %}
+        <p class="warning"><i class="fa fa-warning" aria-hidden="true"></i>
+            {% trans href=url('badger.views.awards_list', badge.slug), awards_count=awards_count %}
+                Deleting this badge will also delete 
+                <a href="{{ href }}"><strong>{{ awards_count }}</strong> award(s)</a>
+            {% endtrans %}
+        </p>
+    {% endif %}
 
-{% if awards_count %}
-    <p class="warning"><i class="fa fa-warning" aria-hidden="true"></i>
-        {% trans href=url('badger.views.awards_list', badge.slug), awards_count=awards_count %}
-            Deleting this badge will also delete 
-            <a href="{{ href }}"><strong>{{ awards_count }}</strong> award(s)</a>
-        {% endtrans %}
-    </p>
-{% endif %}
-
-<form method="POST" action="" enctype="multipart/form-data">
-    {{ csrf() }}
-    <p>
-        <input type="submit" class="button-negative" value="{{ _("Yes, delete badge") }}">
-        <a href="{{ badge.get_absolute_url() }}" class="button-sand">{{ _("No thanks") }}</a>
-    </p>
-</form>
-
+    <form method="POST" action="">
+        {{ csrf() }}
+        <p>
+            <input type="submit" class="button-negative" value="{{ _("Yes, delete badge") }}">
+            <a href="{{ badge.get_absolute_url() }}" class="button">{{ _("No thanks") }}</a>
+        </p>
+    </form>
 {% endblock %}

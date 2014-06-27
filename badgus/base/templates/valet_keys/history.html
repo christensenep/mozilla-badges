@@ -1,25 +1,36 @@
 {% extends "valet_keys/base.html" %}
 
-{% block intro %}{{ _("Valet Keys: <b>Key History</b>" | safe) }}{% endblock %}
+{% set TITLE = _("Valet key history") %}
 
-{% block subcontent %}
-<p><a class="btn btn-large btn-success" href="{{ url('valet_keys.list') }}">{{ _('Return to the key list') }}</a></p>
-<dl class="key" id="key-{{ key.pk }}">
-    <dt>{{ _("Created") }}</dt>
-    <dd class="created">{{ key.created }}</dd>
-    <dt>{{ _("Description") }}</dt>
-    <dd class="description">{{ key.description }}</dd>
-</dl>
+{% block content %}
+    <div class="group section">
+        <div class="col span_1_of_2">
+            <dl class="meta" id="key-{{ key.pk }}">
+                <dt>{{ _("Created") }}</dt>
+                <dd class="created">{{ key.created }}</dd>
+                <dt>{{ _("Description") }}</dt>
+                <dd class="description">{{ key.description }}</dd>
+            </dl>
+        </div>
+        <div class="col span_1_of_2">
+            <p class="text-right">
+                <a class="button" href="{{ url('valet_keys.list') }}">{{ _('Return to the key list') }}</a>
+            </p>
+        </div>
+    </div>
+
 {% if not items.object_list|length %}
     <p>{{ _("This key has not been used yet.") }}</p>
 {% else %}
-    <table class="items" cellpadding="4">
-        <tr>
-            <th>Time</th>
-            <th>Action</th>
-            <th>Object</th>
-            <th>Notes</th>
-        </tr>
+    <table class="form block">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Action</th>
+                <th>Object</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
         {% for item in items.object_list %}
             <tr class="item">
                 <td class="created">{{ item.created }}</td>

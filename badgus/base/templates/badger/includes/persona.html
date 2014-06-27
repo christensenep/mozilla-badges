@@ -1,4 +1,4 @@
-<form class="browserid" action="{{ url('browserid_verify') }}" method="post">
+<form class="browserid{% if inline %} inline-form{% endif %}" action="{{ url('browserid_verify') }}" method="post">
     {{ csrf() }}
     {% set next = request.GET.get('next', False) %}
     {% if next %}

@@ -1,25 +1,135 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = _("Nomination for &lsquo;{badge_title}&rsquo;") | fe(badge_title=badge.title) %}
+
 {% block pageid %}nomination_detail{% endblock %}
 
 {% block content %}
-<section class="row-fluid">
+<div class="group section">
+    <div class="col span_1_of_5">
+        <h4>{{ _("Badge") }}:</h4>
+        <a href="{{ nomination.badge.get_absolute_url() }}" class="card">
+            <img src="{{ nomination.badge.image.url }}" class="image" alt="{{ nomination.badge }}" width="128" height="128">
+            <span class="label">{{ nomination.badge }}</span>
+        </a>
+    </div>
+    <div class="col span_1_of_5">
+        <h4>{{ _("Nominee") }}:</h4>
+        <a href="{{ nomination.nominee.get_absolute_url() }}" class="card">
+            <img src="{{ user_avatar(nomination.nominee) }}" class="image" alt="{{ nomination.nominee }}" width="128" height="128">
+            <span class="label">{{ nomination.nominee }}</span>
+        </a>
+    </div>
+    <div class="col span_1_of_5">
+        <h4>{{ _("Nominated by") }}:</h4>
+        <a href="{{ nomination.creator.get_absolute_url() }}" class="card">
+            <img src="{{ user_avatar(nomination.creator) }}" class="image" alt="{{ nomination.creator }}" width="128" height="128">
+            <span class="label">{{ nomination.creator }}</span>
+        </a>
+    </div>
+    {% if nomination.approver %}
+        <div class="col span_1_of_5">
+            <h4>{{ _("Approved by") }}:</h4>
+            <a href="{{ nomination.approver.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(nomination.approver) }}" class="image" alt="{{ nomination.approver }}" width="128" height="128">
+                <span class="label">{{ nomination.approver }}</span>
+            </a>
+        </div>
+    {% elif nomination.rejected_by %}
+        <div class="col span_1_of_4">
+            <h4>{{ _("Rejected by") }}:</h4>
+            <a href="{{ nomination.rejected_by.get_absolute_url() }}" class="card">
+                <img src="{{ user_avatar(nomination.rejected_by) }}" class="image" alt="{{ nomination.rejected_by }}" width="128" height="128">
+                <span class="label">{{ nomination.rejected_by }}</span>
+            </a>
+        </div>
+    {% endif %}
+    <div class="col span_1_of_5">
+        <h4>{{ _("Accepted") }}:</h4>
+        {% if nomination.rejected_by %}
+            <div class="card block-card">
+                <span class="image">
+                    <i class="fa fa-ban"></i>
+                </span>
+                <span class="label">{{ _("Rejected") }}</span>
+            </div>
+        {% elif nomination.award %}
+            <a href="{{ nomination.award.get_absolute_url() }}" class="card block-card">
+                <span class="image">
+                    <i class="fa fa-{{ nomination.accepted and 'check text-success' or 'times text-danger' }}"></i>
+                </span>
+                <span class="label">{{ nomination.accepted and _("Yes") or _("No") }}</span>
+            </a>
+        {% else %}
+            <div class="card block-card">
+                <span class="image">
+                    <i class="fa fa-{{ nomination.accepted and 'check text-success' or 'times text-danger' }}"></i>
+                </span>
+                <span class="label">{{ nomination.accepted and _("Yes") or _("No") }}</span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% if nomination.rejected_reason %}
+    <blockquote>
+        <p>{{ nomination.rejected_reason }}</p>
+    </blockquote>
+{% endif %}
 
-    <section class="badge span4">
-        <header class="page-header">
-            <h2>{{ _("Badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
-        </header>
-        {% include "badger/includes/badge_full.html" %}
-    </section>
+{#
+{% include "badger/includes/badge.html" %}
+#}
 
+{% set show_approve = not nomination.is_approved and nomination.allows_approve_by(request.user) %}
+{% set show_accept = nomination.is_approved and not nomination.is_accepted and nomination.allows_accept(request.user) %}
+{% set show_reject = nomination.allows_reject_by(request.user) %}
+
+{% if show_approve or show_accept %}
+    <div class="text-center">
+
+        {% if show_approve %}
+            <form method="post" class="inline-form">
+                {{ csrf() }}
+                <input type="hidden" name="action" value="approve_by" />
+                <button class="button-positive">{{ _('Approve nomination') }}</button>
+            </form>
+        {% endif %}
+
+        {% if show_accept %}
+            <form method="post" class="inline-form">
+                {{ csrf() }}
+                <input type="hidden" name="action" value="accept" />
+                <button class="button-positive">
+                    {% if request.user == nomination.user %}
+                        {{ _('Accept your nomination') }}
+                    {% else %}
+                        {{ _('Accept nomination on behalf of nominee') }}
+                    {% endif %}
+                </button>
+            </form>
+        {% endif %}
+
+        {% if show_approve %}
+            <form method="post" class="inline-form">
+                {{ csrf() }}
+                <input type="hidden" name="action" value="reject_by" />
+                <button class="button-negative">{{ _('Reject nomination') }}</button>
+            </form>
+        {% endif %}
+
+    </div>
+{% endif %}
+
+
+
+{#
+{% if show_approve or show_accept %}
+
+{% 
     <section class="nomination span8">
         <header class="page-header">
-            <h2>{{ _("Nomination detail") }}</h2>
         </header>
         <dl class="nomination">
-            {% set show_approve = not nomination.is_approved and nomination.allows_approve_by(request.user) %}
-            {% set show_accept = nomination.is_approved and not nomination.is_accepted and nomination.allows_accept(request.user) %}
-            {% set show_reject = nomination.allows_reject_by(request.user) %}
             {% if show_approve or show_accept %}
                 <dt>{{ _("Actions:") }}</dt><dd><ul class="btn-list">
                     {% if show_approve %}
@@ -82,7 +192,5 @@
                 <dd>{{ nomination.modified }}</dd>
         </dl>
     </section>
-
-</section>
-
+#}
 {% endblock %}

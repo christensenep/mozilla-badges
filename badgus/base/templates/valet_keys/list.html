@@ -1,43 +1,62 @@
 {% extends "valet_keys/base.html" %}
 
-{% block intro %}{{ _("Valet Keys: <b>Your Keys</b>" | safe) }}{% endblock %}
+{% set TITLE = _("Valet Keys") %}
 
-{% block subcontent %}
+{% block content %}
 <p>{% trans %}
     These are your valet keys. They're useful for building applications that
     perform tasks on your behalf. If you have stopped using any of
     them, or suspect one has been exposed to parties you don't trust with your
-    account, click the <span class="button">X</span> to delete the key.  It's
+    account, click the <button class="button">Deactivate</button> button to disable the key.  It's
     easy to create a replacement key at any time.
 {% endtrans %}</p>
-<p><a class="btn btn-large btn-success" href="{{ url('valet_keys.new') }}">{{ _('Create a new key') }}</a></p>
+
+<p class="text-center"><a class="button-positive" href="{{ url('valet_keys.new') }}">{{ _('Create a new key') }}</a></p>
+
+<h3>{{ _('Your keys') }}</h3>
+
 {% if not keys %}
     <p>{{ _("You have no valet keys, yet.") }}</p>
 {% else %}
-    <table class="keys" cellpadding="4">
-        <tr>
-            <th>Actions</th>
-            <th>Created at</th>
-            <th>Description</th>
-        </tr>
-        {% for key in keys %}
-        <tr id="key-{{ key.pk }}" class="key{% if key.is_disabled %} disabled{% endif %}">
-            <td class="actions">
-                <a class="btn btn-info"
-                   title="{{ _('View key usage history') }}"
-                   href="{{ url('valet_keys.history', pk=key.pk) }}">{{ _('History ({count})') | f(count=key.history.count()) }}</a>
-                {% if not key.is_disabled %}
-                    <a class="btn btn-danger"
-                       title="{{ _('Disable key') }}"
-                       href="{{ url('valet_keys.views.disable', pk=key.pk) }}">{{ _('X') }}</a>
-                {% endif %}
-            </td>
-            <td class="created">{{ key.created }}</td>
-            <td class="description">
-                <span>{{ key.description }}</span>
-            </td>
-        </tr>
-        {% endfor %}
+    <table class="form block">
+        <thead>
+            <tr>
+                <th>{{ _("Key") }}</th>
+                <th>{{ _("Created") }}</th>
+                <th>{{ _("History") }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key in keys %}
+                <tr id="key-{{ key.pk }}" class="key{% if key.is_disabled %} disabled{% endif %}">
+                    <th class="description">
+                        {{ key.description }}
+                    </th>
+                    <td class="created">
+                        {{ key.created }}
+                    </td>
+                    <td class="actions">
+                        <a title="{{ _('View key usage history') }}" href="{{ url('valet_keys.history', pk=key.pk) }}">
+                            {% set count = key.history.count() %}
+                            {% if count == 1 %}
+                                {{ _('Used {count} time') | f(count=count) }}
+                            {% else %}
+                                {{ _('Used {count} times') | f(count=count) }}
+                            {% endif %}
+                            </a>
+                    </td>
+                    <td class="text-center">
+                        {% if key.is_disabled %}
+                            {{ _('Deactivated') }}
+                        {% else %}
+                            <a class="button"
+                               title="{{ _('Disable key') }}"
+                               href="{{ url('valet_keys.views.disable', pk=key.pk) }}">{{ _('Deactivate') }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
     </table>
 {% endif %}
 {% endblock %}

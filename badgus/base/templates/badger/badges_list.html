@@ -1,51 +1,35 @@
 {% extends "badger/base.html" %}
 
+{% set query_string = request.GET.get('q', None) %}
+
+{% if tag_name %}
+    {% set TITLE = _('Badges tagged &lsquo;{tag}&rsquo;') | f(tag=tag_name) %}
+{% elif query_string %}
+    {% set TITLE = _('Search results for &lsquo;{query}&rsquo;') | f(query=query_string) %}
+{% else %}
+    {% set TITLE = _('Badges') %}
+{% endif %}
+
 {% block pageid %}badges{% endblock %}
 
 {% block content %}
-{% set query_string = request.GET.get('q', None) %}
-
-<header class="page-header">
-    <h2>
-        {% if tag_name %}
-            {% trans badge_url=url('badger.views.badges_list'), tag=tag_name %}
-                <a href="{{ badge_url }}">Badges</a> tagged '{{ tag }}'
-            {% endtrans %}
-        {% elif query_string %}
-            <a href="{{ url('badger.views.badges_list') }}">{{ _('Badges') }}</a>
-        {% else %}
-            {{ _('Badges') }}
+    {% if badge_list.count() == 0 %}
+        {% if query_string %}
+            <p class="text-center">
+                {{ _('We couldn\'t find any results for <strong>&ldquo;{query}&rdquo;</strong>.') | fe(query=query_string) }}
+                <label for="search">{{ _('Try searching for something else.') }}</label>
+            </p>
         {% endif %}
-    </h2>
-</header>
-
-{% if query_string %}
-    {% set badge_count = badge_list.count() %}
-    {% if badge_count == 0 %}
-        <p>
-            {{ _('We couldn\'t find any results for <strong>&ldquo;{query}&rdquo;</strong>.') | fe(query=query_string) }}
-        </p>
-        <p>
-            {{ _('Try searching for something else.') }}
-        </p>
     {% else %}
-        <p>
-            {% if badge_count == 1 %}
-                {{ _('Found <strong>{count}</strong> badge matching <strong>&ldquo;{query}&rdquo;</strong>.') | fe(count=badge_count, query=query_string) }}
-            {% else %}
-                {{ _('Found <strong>{count}</strong> badges matching <strong>&ldquo;{query}&rdquo;</strong>.') | fe(count=badge_count, query=query_string) }}
-            {% endif %}
-        </p>
+        {% with include_new_badge_item = not query_string %}
+            {% include "badger/includes/badges.html" %}
+        {% endwith %}
     {% endif %}
-{% endif %}
 
-{% include "badger/includes/badges_list.html" %}
-
-{% if award_list %}
-    <h3>{{ _('Recent awards for these badges') }}</h3>
-    {% with award_list = award_list[:5], hide_pagination = True %}
-        {% include "badger/includes/awards_list.html" %}
-    {% endwith %}
-{% endif %}
-
+    {% if award_list %}
+        <h3>{{ _('Recent awards for these badges') }}</h3>
+        {% with award_list = award_list[:5], hide_pagination = True %}
+            {% include "badger/includes/awards_list.html" %}
+        {% endwith %}
+    {% endif %}
 {% endblock %}

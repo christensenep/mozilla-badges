@@ -1,5 +1,7 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = badge.title %}
+
 {% set badge_url = request.build_absolute_uri(badge.get_absolute_url()) %}
 {% if badge.image %}
     {% set image_url = badge.image.url %}
@@ -32,30 +34,74 @@
 {% endblock %}
 
 {% block content %}
-<h2>
-    <a href="{{ url('badger.views.badges_list') }}">{{ _('Badges') }}</a>
-        <i class="fa fa-angle-right" aria-hidden="true"></i>
-    {{ badge.title }}
-</h2>
-
-{% include "badger/includes/badge_full.html" %}
+{% include "badger/includes/badge.html" %}
 
 {% if award_list %}
     <h3>{{ _("Recent badge awards") }}</h3>
     {% with show_badge = false %}
         {% set include_more_awards_item = url('badger.views.awards_list', badge.slug) %}
-        {% include "badger/includes/awards_list.html" %}
+        {% include "badger/includes/awards.html" %}
     {% endwith %}
+{% endif %}
+
+{% if badge.allows_award_to(request.user) %}
+    <h3>{{ _("Issue badge awards by email") }}</h3>
+    <form class="basic-form" method="post" action="{{ url('badger.views.award_badge', slug=badge.slug) }}">
+        {{ csrf() }}
+        {{ sections.award.form.as_p() }}
+        <p><button type="submit" class="button-positive">{{ _("Issue badge awards") }}</button></p>
+    </form>
 {% endif %}
 
 {% if badge.allows_nominate_for(request.user) %}
     <h3>{{ _("Nominate someone for this badge") }}</h3>
-    <form class="basic-form" id="award_badge" method="post" action="{{ url('badger.views.nominate_for', slug=badge.slug) }}">
+    <form class="basic-form" method="post" action="{{ url('badger.views.nominate_for', slug=badge.slug) }}">
         {{ csrf() }}
         {{ sections.nominate.form.as_p() }}
-        <p><button type="submit" class="button">{{ _("Submit nominations") }}</button>
+        <p><button type="submit" class="button-positive">{{ _("Submit nominations") }}</button>
     </form>
 {% endif %}
+
+{% if badge.allows_manage_deferred_awards_by(request.user) %}
+    <h3>{{ _("Issue badge awards with claim codes") }}</h3>
+    <form class="basic-form" method="post">
+        {{ csrf() }}
+        <input type="hidden" name="is_generate" value="1" />
+        <p>
+            <label for="code_count">Count:</label>
+            <select id="code_count" name="amount">
+                <option value="1">{{ _("1 reusable claim code") }}</option>
+                {% for x in (6, 12, 24, 48, 72, 96) %}
+                    <option value="{{ x }}">{{ _('{num} single-use claim codes') | f(num=x) }}</option>
+                {% endfor %}
+            </select>
+            <span class="helptext">PDF prints sheets of <a href="https://www.google.com/search?q=Avery+22805" target="_blank">Avery 22805 labels</a>, 24 per page</span>
+        </p>
+        <p><button type="submit" class="button-positive">{{ _("Generate") }}</button></p>
+    </form>
+    {% if claim_groups %}
+        <ul class="basic-form">
+            {% for item in claim_groups %}
+                <li>
+                    <strong><a href="{{ url('badger.claims_list', badge.slug, item.claim_group) }}" target="_blank">
+                        {%- if item.count > 1 -%}
+                            {{ _('{count} single-use codes') | f(count=item.count) }}
+                        {%- else -%}
+                            {{ _('1 reusable code') }}
+                        {%- endif -%}
+                    </a></strong> last modified {{ item.modified }}</strong>
+                    <form class="delete_claim" method="POST" action="">
+                        {{ csrf() }}
+                        <input type="hidden" name="is_delete" value="1" />
+                        <input type="hidden" name="claim_group" value="{{ item.claim_group }}" />
+                        <button type="submit" class="button-negative">{{ _("Delete") }}</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}
+
 
 {#
 <section class="row-fluid">

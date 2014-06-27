@@ -1,5 +1,7 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = _("Awards for {user}") | f(user=user) %}
+
 {% block pageid %}badge_awards_by_user{% endblock %}
 
 {% block extrahead %}
@@ -9,10 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="awards_list">
-    <header class="page-header">
-        <h2>{{ _("Awards for {user}") | f(user=user) }}</h2>
-    </header>
-    {% include "badger/includes/awards_as_badges_list.html" %}
-</section>
+    {% with show_user = false %}
+        {% include "badger/includes/awards.html" %}
+    {% endwith %}
 {% endblock %}

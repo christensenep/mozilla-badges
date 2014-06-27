@@ -35,7 +35,7 @@
                         <h4>{{ _("Want to recognize an achievement?") }}</h4>
                         <p>{{ _("Need to reward your community?") }}</p>
                         {% if not config.BADGER_ALLOW_ADD_ONLY_BY_MOZILLIANS or (not request.user.is_anonymous() and request.user.get_profile().is_vouched_mozillian()) %}
-                            <p><a class="button" href="{{ url('badger.views.create') }}">{{ _("Create a new badge") }}
+                            <p><a class="button-positive" href="{{ url('badger.views.create') }}">{{ _("Create a new badge") }}
                                 <i class="fa fa-chevron-right"></i></a></p>
                         {% else %}
                             <p>{{ _("This service requires a vouched profile at <a href=\"https://mozillians.org\">mozillians.org</a>.") | fe() }}</p>
@@ -48,7 +48,7 @@
                             {{ csrf() }}
                             <p>
                                 <input type="text" size="15" name="code" value="">
-                                <button class="button" type="submit">Claim <i class="fa fa-chevron-right"></i></button>
+                                <button class="button-positive" type="submit">Claim <i class="fa fa-chevron-right"></i></button>
                             </p>
                         </form>
                     </div>
@@ -64,7 +64,7 @@
                             {% set cols=3 %}
                             {% set hide_pagination=true %}
                             {% set badge_list = badge_list[:5] %}
-                            {% include "badger/includes/badges_list.html" %}
+                            {% include "badger/includes/badges.html" %}
                         {% endwith %}
                     </div>
                     <div class="col span_1_of_2">
@@ -74,7 +74,7 @@
                             {% set cols=3 %}
                             {% set hide_pagination=true %}
                             {% set award_list = award_list[:5] %}
-                            {% include "badger/includes/awards_list.html" %}
+                            {% include "badger/includes/awards.html" %}
                         {% endwith %}
                     </div>
                 </div>

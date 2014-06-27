@@ -1,5 +1,3 @@
-<p>{{ _("Awarded on {date}") | f(date=award.created.date()) }}.</p>
-
 {% if award.description %}
     <blockquote>
         <p>{{ award.description | bleach_markup }}</p>
@@ -9,7 +7,7 @@
 <div class="group section text-center">
     {% if award.nomination %}
         <div class="col span_1_of_3">
-            <h3>{{_("Awarded to:")}}</h3>
+            <h4>{{_("Awarded to:")}}</h4>
             <a href="{{ award.user.get_absolute_url() }}" class="card">
                 <img src="{{ user_avatar(award.user) }}" class="image" alt="{{ award.user }}" width="256" height="256">
                 <span class="label">
@@ -19,8 +17,8 @@
             </a>
         </div>
         <div class="col span_1_of_3">
-            <h3><a href="{{ award.nomination.get_absolute_url() }}">{{_("Nominated by:")}}</h3>
-            <a href="{{ award.nomination.creator.get_absolute_url() }}" class="card">
+            <h4>{{_("Nominated by:")}}</h4>
+            <a href="{{ award.nomination.get_absolute_url() }}" class="card">
                 <img src="{{ user_avatar(award.nomination.creator) }}" class="image" alt="{{ award.nomination.creator }}" width="256" height="256">
                 <span class="label">
                     {{ award.nomination.creator }}
@@ -29,7 +27,7 @@
             </a>
         </div>
         <div class="col span_1_of_3">
-            <h3>{{_("Approved by:")}}</h3>
+            <h4>{{_("Approved by:")}}</h4>
             {% if award.badge.nominations_autoapproved %}
                 <span class="card">
                     <span class="image"><i class="fa fa-user"></i></span>
@@ -52,7 +50,7 @@
         </div>
     {% else %}
         <div class="col span_1_of_2">
-            <h3>{{_("Awarded to:")}}</h3>
+            <h4>{{_("Awarded to:")}}</h4>
             <a href="{{ award.user.get_absolute_url() }}" class="card">
                 <img src="{{ user_avatar(award.user) }}" class="image" alt="{{ award.user }}" width="256" height="256">
                 <span class="label">
@@ -62,7 +60,7 @@
             </a>
         </div>
         <div class="col span_1_of_2">
-            <h3>{{_("Awarded by:")}}</h3>
+            <h4>{{_("Awarded by:")}}</h4>
             <a href="{{ award.creator.get_absolute_url() }}" class="card">
                 <img src="{{ user_avatar(award.creator) }}" class="image" alt="{{ award.creator }}" width="256" height="256">
                 <span class="label">

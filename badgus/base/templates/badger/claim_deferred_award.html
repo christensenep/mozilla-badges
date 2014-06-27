@@ -1,79 +1,55 @@
 {% extends "badger/base.html" %}
 
+{% set TITLE = _('Claim the &lsquo;{badge_title}&rsquo; badge') | f(badge_title=badge.title) %}
+
 {% block pageid %}claim_badge{% endblock %}
 
 {% block content %}
 
 <section class="row-fluid">
+    {% include "badger/includes/badge_claimed.html" %}
 
-    <section class="span4" id="detail">
-        <header class="page-header">
-            <h2>{{ _("Badge: {badge_title}") | f(badge_title=badge.title) }}</h2>
-        </header>
-        {% include "badger/includes/badge_full.html" %}
-    </section>
-
-    <section class="span8">
+    <div class="group section">
+        <div class="col span_1_of_3">
+        </div>
+        <div class="col span_1_of_3">
+        </div>
+        <div class="col span_1_of_3">
+        </div>
+    </div>
     
-        <header class="page-header">
-            <h2>{{ _("Award Claim") }}</h2>
-        </header>
-
-        <dl class="details">
-            {% if deferred_award.email %}
-                <dt>Email address:</dt>
-                    <dd><code class="email">{{ deferred_award.email }}</code></dd>
-            {% endif %}
-            <dt>Claim code:</dt>
-                <dd><code>{{ deferred_award.claim_code }}</code></dd>
-        </dl>
-
-        {% if user.is_anonymous() %}
-            <div>
-                <h3>{{ _("Claim") }}</h3>
-                <p>{{ _("Sign in to claim this badge award") }}</p>
-                <form class="browserid" action="{{url('browserid_verify')}}" method="POST">
-                    {{ csrf() }}
-                    <input type="hidden" name="next" value="{{ request.build_absolute_uri() }}" />
-                    {{ browserid_form.as_p()|safe }}
-                    <a href="#" class="browserid-signin" title="{{_('Sign In with BrowserID')}}"><img src="{{ static('img/sign_in_blue.png') }}" /></a>
-                </form>
-            </div>
-        {% endif %}
-
+    {% if user.is_anonymous() %}
+        <p>{{ _("Sign in to claim this badge") }}.</p>
+    {% else %}
         {% if deferred_award.allows_grant_by(request.user) %}
-            <form id="grant_award" method="POST" action="">
-                <input type="hidden" name="is_grant" value="1" />
+            <h3>{{ _("Grant") }}</h3>
+            <form class="basic-form" method="post">
                 {{ csrf() }}
-                <h3>{{ _("Grant") }}</h3>
+                <input type="hidden" name="is_grant" value="1" />
                 <p>{{ _("You can grant this award to someone else") }}
                 {{ grant_form.as_p() }}
-                <input type="submit" class="btn btn-large btn-primary submit" value="{{ _("Grant this award") }}">
+                <p><button type="submit" class="button-positive">{{ _("Grant this award") }}</button></p>
             </form>
         {% endif %}
 
         {% if deferred_award.allows_claim_by(request.user) %}
-        {% set email_mismatch = (deferred_award.email and request.user.email != deferred_award.email) %}
-        <form id="claim_award" method="POST" action="" class="{{ email_mismatch and 'email-mismatch ' or '' }}">
-            {{ csrf() }}
             <h3>{{ _("Claim") }}</h3>
-            {% if email_mismatch %}
-                {# This isn't enforced, since an awardee might have multiple email addresses #}
-                {% trans %}
-                <p><span class="label label-warning">Note:</span>
-                    <em>This award may not be intended for you.</em>
-                    Your email address does not match this award claim.
-                </p>
-                {% endtrans %}
-            {% else %}
-                <p>{{ _("You can claim this award for yourself") }}</p>
-            {% endif %}
-            <input type="submit" class="btn btn-large btn-primary submit" value="{{ _("Claim this award") }}">
-        </form>
+            {% set email_mismatch = (deferred_award.email and request.user.email != deferred_award.email) %}
+            <form class="basic-form{{ email_mismatch and ' email-mismatch ' or '' }}" method="post">
+                {{ csrf() }}
+                {% if email_mismatch %}
+                    {# This isn't enforced, since an awardee might have multiple email addresses #}
+                    {% trans %}
+                        <p><span class="label label-warning">Note:</span>
+                            <em>This award may not be intended for you.</em>
+                            Your email address does not match this award claim.
+                        </p>
+                    {% endtrans %}
+                {% else %}
+                    <p>{{ _("You can claim this award for yourself") }}</p>
+                {% endif %}
+                <p><button type="submit" class="button-positive">{{ _("Claim this award") }}</button></p>
+            </form>
         {% endif %}
-
-    </section>
-
-</section>
-
+    {% endif %}
 {% endblock %}

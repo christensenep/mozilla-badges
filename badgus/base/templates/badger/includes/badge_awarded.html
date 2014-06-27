@@ -1,0 +1,20 @@
+{% extends "badger/includes/badge.html" %}
+
+{% block badge_image %}
+    <a href="{{ badge.get_absolute_url() }}">{{ super() }}</a>
+{% endblock %}
+
+{% block badge_meta %}
+    <dt class="awarded-to">{{ _("Awarded to") }}</dt>
+        <dd class="awarded-to"><a href="{{ award.user.get_absolute_url() }}">{{ award.user }}</a></dd>
+    <dt class="awarded-on">{{ _("Awarded on") }}</dt>
+        <dd class="awarded-on">{{ award.created.date() }}</dd>
+{% endblock %}
+
+{% block actions %}
+    {% if award.allows_delete_by(request.user) %}
+        <p class="actions">
+            <a class="button" href="{{ url('badger.views.award_delete', badge.slug, award.id) }}">{{ _('Delete award') }}</a>
+        </p>
+    {% endif %}
+{% endblock %}

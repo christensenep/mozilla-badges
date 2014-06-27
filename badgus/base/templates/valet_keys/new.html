@@ -1,22 +1,24 @@
 {% extends "valet_keys/base.html" %}
 
-{% block intro %}{{ _("Valet Keys: <b>Create Key</b>" | safe) }}{% endblock %}
+{% set TITLE = _("Create a new valet key") %}
 
-{% block subcontent %}
+{% block content %}
     {% if not key %}
-        <p class="alert">
+        <p>
             {% trans %}
-                <span class="label label-warning">Note:</span>
-                Try to be as clear as you can be in this description.
+                Note: Try to be as clear as you can be in this description.
                 This will be your only means of identifying this key later,
                 other than the date and time of its creation.
             {% endtrans %}
         </p>
-        <form method="POST" action="" class="key">
+
+        <form class="basic-form" method="post">
             {{ csrf() }}
             {{ form.as_p() }}
-            <button type="submit" name="action_create" class="btn btn-success">{{ _("Create new key") }}</button>
-            <a class="btn" href="{{ url('valet_keys.list') }}">{{ _('Cancel') }}</a>
+            <p>
+                <button type="submit" name="action_create" class="button-positive">{{ _("Create new key") }}</button>
+                <a class="button-negative" href="{{ url('valet_keys.list') }}">{{ _('Cancel') }}</a>
+            </p>
         </form>
     {% else %}
         <p class="alert">
@@ -40,8 +42,8 @@
             <dt>{{ _("Description") }}</dt>
             <dd class="description">{{ key.description }}</dd>
         </dl>
-        <p>
-            <a class="btn btn-large btn-success" href="{{ url('valet_keys.list') }}">{{ _('Return to the key list') }}</a>
+        <p class="text-right">
+            <a class="button-positive" href="{{ url('valet_keys.list') }}">{{ _('Return to the key list') }}</a>
         </p>
     {% endif %}
 {% endblock %}
