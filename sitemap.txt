@@ -1,0 +1,269 @@
+/
+	Controller: badger.views.home
+	URL Name: home
+	Decorators: login_required
+	Verified: yes
+
+/notification/
+	Controller: notification.views.notices
+	URL Name: notification_notices
+	Decorators: login_required
+	Verified: yes
+
+/notification/settings/
+	Controller: notification.views.notice_settings
+	URL Name: notification_notice_settings
+	Decorators: login_required
+	Verified: yes
+
+/notification/<var>/
+	Controller: notification.views.single
+	URL Name: notification_notice
+	Decorators: login_required
+	Verified: yes
+
+/notification/mark_all_seen/
+	Controller: notification.views.mark_all_seen
+	URL Name: notification_mark_all_seen
+	Decorators: login_required
+	Verified: yes (?)
+
+/badges/create
+	Controller: badgus.base.views.create
+	URL Name: 
+	Decorators: 
+	Verified:
+
+/badges/badge/<slug>/awards/
+	Controller: badgus.badger_api.views.awards_list
+	URL Name: 
+	Decorators: 
+	Verified: yes
+
+/badges/
+	Controller: badger.views.BadgesListView
+	URL Name: badger.badges_list
+	Decorators: 
+	Verified: yes
+
+/badges/staff_tools
+	Controller: badger.views.staff_tools
+	URL Name: badger.staff_tools
+	Decorators: 
+	Verified: yes
+
+/badges/tag/<tag_name>/
+	Controller: badger.views.BadgesListView
+	URL Name: badger.badges_list
+	Decorators: 
+	Verified: yes
+
+/badges/awards/
+	Controller: badger.views.AwardsListView
+	URL Name: badger.awards_list
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/awards/
+	Controller: badger.views.AwardsListView
+	URL Name: badger.awards_list_for_badge
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/awards/<id>.json
+	Controller: badger.views.award_detail
+	URL Name: badger.award_detail_json
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/awards/<id>/
+	Controller: badger.views.award_detail
+	URL Name: badger.award_detail
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/awards/<id>/delete
+	Controller: badger.views.award_delete
+	URL Name: badger.award_delete
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/claims/<claim_group>.pdf
+	Controller: badger.views.claims_list
+	URL Name: badger.claims_list_pdf
+	Decorators: 
+	Verified:
+
+/badges/badge/<slug>/claims/<claim_group>/
+	Controller: badger.views.claims_list
+	URL Name: badger.claims_list
+	Decorators: 
+	Verified:
+
+/badges/claim/<claim_code>/
+	Controller: badger.views.claim_deferred_award
+	URL Name: badger.claim_deferred_award
+	Decorators: 
+	Verified:
+
+/badges/claim/
+	Controller: badger.views.claim_deferred_award
+	URL Name: badger.claim_deferred_award_form
+	Decorators: 
+	Verified:
+
+/badges/badge/<slug>/award
+	Controller: badger.views.award_badge
+	URL Name: badger.award_badge
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>.json
+	Controller: badger.views.detail
+	URL Name: badger.detail_json
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/
+	Controller: badger.views.detail
+	URL Name: badger.detail
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/awards/
+	Controller: badger.views.awards_by_badge
+	URL Name: badger.awards_by_badge
+	Decorators: 
+	Verified: yes
+
+/badges/users/<username>/awards/
+	Controller: badger.views.awards_by_user
+	URL Name: badger.awards_by_user
+	Decorators: 
+	Verified: yes
+
+/badges/create
+	Controller: badger.views.create
+	URL Name: badger.create_badge
+	Decorators: 
+	Verified:
+
+/badges/badge/<slug>/nominate
+	Controller: badger.views.nominate_for
+	URL Name: badger.nominate_for
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/edit
+	Controller: badger.views.edit
+	URL Name: badger.badge_edit
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/delete
+	Controller: badger.views.delete
+	URL Name: badger.badge_delete
+	Decorators: 
+	Verified: yes
+
+/badges/badge/<slug>/nominations/<id>/
+	Controller: badger.views.nomination_detail
+	URL Name: badger.nomination_detail
+	Decorators: 
+	Verified: yes
+
+/badges/users/<username>/badges/
+	Controller: badger.views.badges_by_user
+	URL Name: badger.badges_by_user
+	Decorators: 
+	Verified: yes
+
+/badges/feeds/<format>/badges/
+	Controller: badger.feeds.BadgesRecentFeed()
+	URL Name: badger.feeds.badges_recent
+	Decorators: 
+	Verified:
+
+/badges/feeds/<format>/users/<username>/badges/
+	Controller: badger.feeds.BadgesByUserFeed()
+	URL Name: badger.feeds.badges_by_user
+	Decorators: 
+	Verified:
+
+/badges/feeds/<format>/awards/
+	Controller: badger.feeds.AwardsRecentFeed()
+	URL Name: badger.feeds.awards_recent
+	Decorators: 
+	Verified:
+
+/badges/feeds/<format>/badge/<slug>/awards/
+	Controller: badger.feeds.AwardsByBadgeFeed()
+	URL Name: badger.feeds.awards_by_badge
+	Decorators: 
+	Verified:
+
+/badges/feeds/<format>/users/<username>/awards/
+	Controller: badger.feeds.AwardsByUserFeed()
+	URL Name: badger.feeds.awards_by_user
+	Decorators: 
+	Verified:
+
+/profiles/home/
+	Controller: badgus.profiles.views.home
+	URL Name: profiles.home
+	Decorators: login_required
+	Verified:
+
+/profiles/logout/
+	Controller: badgus.profiles.views.logout
+	URL Name: profiles.logout
+	Decorators: 
+	Verified:
+
+/profiles/profile/<username>/
+	Controller: badgus.profiles.views.profile_view
+	URL Name: profiles.profile_view
+	Decorators: 
+	Verified:
+
+/profiles/profile/<username>/edit/
+	Controller: badgus.profiles.views.profile_edit
+	URL Name: profiles.profile_edit
+	Decorators: 
+	Verified:
+
+/keys/
+	Controller: valet_keys.views.list
+	URL Name: valet_keys.list
+	Decorators: login_required
+	Verified: yes
+
+/keys/new
+	Controller: valet_keys.views.new
+	URL Name: valet_keys.new
+	Decorators: login_required
+	Verified: yes
+
+/keys/<pk>/history
+	Controller: valet_keys.views.history
+	URL Name: valet_keys.history
+	Decorators: login_required
+	Verified: yes
+
+/keys/<pk>/disable
+	Controller: valet_keys.views.disable
+	URL Name: valet_keys.disable
+	Decorators: login_required
+	Verified: yes
+
+/browserid/verify/
+	Controller: django_browserid.views.Verify
+	URL Name: browserid_verify
+	Decorators: 
+	Verified:
+
+/media/<path>
+	Controller: django.views.static.serve
+	URL Name: 
+	Decorators: 
+
