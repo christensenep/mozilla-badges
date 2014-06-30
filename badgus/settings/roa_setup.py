@@ -11,7 +11,6 @@ class JWTAuthFilter(object):
         self.secret = BADGEKIT_API_AUTH['secret']
 
     def on_request(self, request):
-        print 'lbah'
         url = urlparse.urlparse(request.url)
         path = url.path
         if url.query:
