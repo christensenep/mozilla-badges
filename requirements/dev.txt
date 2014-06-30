@@ -16,3 +16,7 @@ translate-toolkit==1.8.0
 
 feedparser
 pyquery
+PyJWT==0.2.1
+restkit==4.2.2
+djangorestframework==2.3.14
+simplejson==3.5.3
