@@ -51,6 +51,17 @@ h3 a {
   text-decoration: none;
 }
 
+input[type=color] {
+  border: none;
+  padding: 0;
+  background: none;
+  vertical-align: middle;
+  width: 4em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .hero {
   text-align: center;
   margin-bottom: 5em;
