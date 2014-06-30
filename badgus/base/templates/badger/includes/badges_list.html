@@ -1,7 +1,7 @@
 <ul class="badges">
     {% for badge in badge_list %}
-        {% if badge.image %}
-            {% set img_url = badge.image.url %}
+        {% if badge.image_url %}
+            {% set img_url = badge.image_url %}
         {% else %}
             {% set img_url = static("img/default-badge.png") %}
         {% endif %}

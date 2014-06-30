@@ -1,0 +1,13 @@
+*.log
+*.pot
+*.pyc
+settings_local.py
+local_settings.py
+.idea/
+*.sql
+*.db
+.cache
+/static/
+.vagrant/
+examples/django_rest_framework/backend/admin
+examples/django_rest_framework/backend/db.sqlite3

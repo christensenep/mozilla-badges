@@ -6,3 +6,4 @@ src/django-south
 src/django-csp
 src/django-notification
 src/django-constance
+src/django-roa
