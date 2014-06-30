@@ -102,6 +102,7 @@ INSTALLED_APPS = [
     'badger',
 
     'badgus.badger_api',
+    'badgus.studio',
 
     'notification',
     #'csp',

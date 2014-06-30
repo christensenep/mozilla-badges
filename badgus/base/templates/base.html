@@ -91,6 +91,15 @@
                         {% block outer_content %}
                             <main id="content" role="main">
                                 <div class="constrained">
+                                    {% block messages %}
+                                        {% if messages %}
+                                            <header class="messages">
+                                                {% for message in messages %}
+                                                    <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message | safe }}</div>
+                                                {% endfor %}
+                                            </header>
+                                        {% endif %}
+                                    {% endblock messages %}
                                     {% block title %}
                                         {% if TITLE %}<h2>{{ TITLE | safe }}</h2>{% endif %}
                                     {% endblock title %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block site_css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ static('css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ static('css/studio.css') }}">
+{% endblock %}
+
+{% block studio %}
+    <div id="studio">
+        <div id="studio-output"></div>
+        <form id="studio-input" method="post">
+            {{ csrf() }}
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    <div class="item collapsed">
+                        {{ field }}
+                    </div>
+                {% else %}
+                    <h3 class="label">{{ field.label_tag() }}</h3>
+                    <div class="item">
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% block studio_actions %}
+                <p class="text-right">No actions!</p>
+            {% endblock %}
+        </form>
+    </div>
+
+    {% block studio_templates %}
+        <template id="settings-template">
+          <div id="settings" role="dialog" class="overlay hidden" arial-labelledby="settings-title">
+            <header class="header">
+              <h2 class="title" id="settings-title">Settings</h2>
+            </header>
+            <div class="panel">
+              <h3 class="label">Display</h3>
+              <p>
+                <select name="display">
+                  <option value="dark">Dark</option>
+                  <option value="light">Light</option>
+                </select>
+              </p>
+              <h3 class="label">Badge Size</h3>
+              <small>Only affects display size</small>
+              <p>
+                <select name="badge-size">
+                  <option value="1">Normal</option>
+                  <option value="0.75">Large</option>
+                  <option value="0.5">Medium</option>
+                  <option value="0.25">Small</option>
+                </select>
+              </p>
+            </div>
+          </div>
+        </template>
+
+        <template id="glyph-selector-template">
+          <div id="glyph-selector" role="dialog" class="overlay hidden" aria-label="Select a glyph" tabIndex="0">
+            <div class="header">
+              <label class="title">Filter: <input type="search"></label>
+            </div>
+            <div class="panel">
+              <ul>
+              </ul>
+            </div>
+          </div>
+        </template>
+
+        <template id="glyph-selector-item-template">
+          <li>
+            <input type="radio" name="glyph-selector-item" class="hidden">
+            <label></label>
+          </li>
+        </template>
+
+        <template id="option-template">
+          <label>
+            <input type="checkbox">
+            <span>Label</span>
+          </label>
+        </template>
+
+        <template id="close-button-template">
+          <button type="button" class="close fa fa-times-circle-o" aria-label="Close"></button>
+        </template>
+
+        <template id="custom-color-template">
+          <label>
+            <input type="color">
+            <span>Label</span>
+          </label>
+        </template>
+    {% endblock %}
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script src="{{ static('js/studio.js') }}"></script>
+{% endblock %}

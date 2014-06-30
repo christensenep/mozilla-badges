@@ -1,0 +1,13 @@
+{% extends "studio/base.html" %}
+
+{% set TITLE = _('Design your badge') %}
+
+{% block content %}
+    <div class="panel plain">
+        {% block studio %}{{ super() }}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block studio_actions %}
+    <p><button class="button-positive" type="submit">Next <i class="fa fa-chevron-right"></i></button></p>
+{% endblock %}

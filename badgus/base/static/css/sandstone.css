@@ -127,6 +127,11 @@ h3 a {
   padding-left: 1.5em;
 }
 
+.alert {
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+}
+
 .panel {
   padding: 1.5em;
   margin: 2em -0.5em;
@@ -137,6 +142,10 @@ h3 a {
   border: solid 1px #EEE;
   background-color: #FFF;
   overflow: hidden;
+}
+
+.panel.plain {
+  padding: 0;
 }
 
 .panel img {
