@@ -131,8 +131,9 @@ def edit_design (request, slug):
     if not badge.allows_edit_by(request.user):
         return HttpResponseForbidden()
 
-    design = Design.objects.get(badge=badge)
-    if not design:
+    try:
+        design = Design.objects.get(badge=badge)
+    except Design.DoesNotExist:
         return HttpResponseNotFound()
 
     if request.method == 'GET':
