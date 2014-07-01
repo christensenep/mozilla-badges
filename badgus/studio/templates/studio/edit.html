@@ -9,5 +9,8 @@
 {% endblock %}
 
 {% block studio_actions %}
-    <p><button class="button-positive" type="submit">Save</button></p>
+    <p>
+        <button class="button-positive" type="submit">Save</button>
+        <a class="button-negative" href="{{ badge.get_absolute_url() }}">Cancel</a>
+    </p>
 {% endblock %}
