@@ -6,12 +6,12 @@
 
 {% block content %}
 
-<form id="edit_badge" method="post">
+<form id="edit_badge" method="post" enctype="multipart/form-data">
     {{ csrf() }}
     <div class="panel">
         <div class="section group">
             <div class="col span_1_of_3">
-                <img src="{{ badge.image.url }}" width="256" height="256" class="image">
+                <img src="{{ badge.image_url }}" width="256" height="256" class="image">
                 {% if request.can_edit_design %}
                     <p><a class="button" href="{{ url('edit_badge_design', badge.slug) }}">Edit image</a></p>
                 {% endif %}
