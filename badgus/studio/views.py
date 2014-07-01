@@ -14,6 +14,7 @@ from django.views.decorators.http import (require_GET, require_POST,
 import json
 from urllib import urlencode
 
+from badger.models import Badge
 from .models import Design
 from .forms import DesignForm
 
@@ -98,3 +99,56 @@ def create (request):
     return render_to_response('studio/create.html', dict(
         form=form,
     ), context_instance=RequestContext(request))
+
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def edit_meta (request, slug):
+    badge = get_object_or_404(Badge, slug=slug)
+    try:
+        design = Design.objects.get(badge=badge)
+        request.can_edit_design = True
+    except Design.DoesNotExist:
+        request.can_edit_design = False
+
+    if request.method == 'GET':
+        return badger.views.edit(request, slug)
+
+    response = badger.views.edit(request, slug)
+    if not isinstance(response, HttpResponseRedirect):
+        return response
+
+    if request.POST['action'] != 'save-edit-image':
+        return response
+
+    return HttpResponseRedirect(reverse('edit_badge_design', args=(slug,)))
+
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def edit_design (request, slug):
+    badge = get_object_or_404(Badge, slug=slug)
+    if not badge.allows_edit_by(request.user):
+        return HttpResponseForbidden()
+
+    design = Design.objects.get(badge=badge)
+    if not design:
+        return HttpResponseNotFound()
+
+    if request.method == 'GET':
+        form = DesignForm(instance=design)
+    else:
+        form = DesignForm(request.POST)
+        if form.is_valid():
+            new_design = form.save(commit=False)
+            new_design.creator = design.creator
+            design.save()
+            badge.image = new_design.image
+            badge.save()
+            return HttpResponseRedirect(reverse('badger.views.detail', args=(slug,)))
+
+    return render_to_response('studio/edit.html', dict(
+        badge=badge,
+        form=form,
+    ), context_instance=RequestContext(request))
+

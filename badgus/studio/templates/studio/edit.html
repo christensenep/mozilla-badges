@@ -1,0 +1,13 @@
+{% extends "studio/base.html" %}
+
+{% set TITLE = _('Editing &lsquo;{badge_title}&rsquo; design' | fe(badge_title=badge.title)) %}
+
+{% block content %}
+    <div class="panel plain">
+        {% block studio %}{{ super() }}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block studio_actions %}
+    <p><button class="button-positive" type="submit">Save</button></p>
+{% endblock %}

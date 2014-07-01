@@ -17,10 +17,15 @@
                         {% for field in form %}
                             {% if field.name != 'image' %}
                                 <li{% if field.required %} class="required"{% endif %}>
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <p class="error text-danger"><i class="fa fa-warning"></i> {{ _(error) }}</p>
+                                        {% endfor %}
+                                    {% endif %}
                                     <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                     {{ field }}
-                                    {% if field.help_text %}
-                                        <p class="helptext">{{ field.help_text }}</p>
+                                    {% if field.help_text or field.field.required %}
+                                        <p class="helptext">{{ field.help_text }}{% if field.field.required %} <em>(Required)</em>{% endif %}</p>
                                     {% endif %}
                                 </li>
                             {% endif %}

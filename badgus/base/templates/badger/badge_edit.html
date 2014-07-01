@@ -17,12 +17,17 @@
             <div class="meta col span_2_of_3">
                 <ul class="form">
                     {% for field in form %}
-                        {% if field.name != 'image' %}
+                        {% if not request.can_edit_design or field.name != 'image' %}
                             <li{% if field.required %} class="required"{% endif %}>
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <p class="error text-danger"><i class="fa fa-warning"></i> {{ _(error) }}</p>
+                                    {% endfor %}
+                                {% endif %}
                                 <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                 {{ field }}
-                                {% if field.help_text %}
-                                    <p class="helptext">{{ field.help_text }}</p>
+                                {% if field.help_text or field.field.required %}
+                                    <p class="helptext">{{ field.help_text }}{% if field.field.required %} <em>(Required)</em>{% endif %}</p>
                                 {% endif %}
                             </li>
                         {% endif %}
@@ -32,7 +37,9 @@
         </div>
         <p class="actions">
             <button class="button-positive" name="action" value="save">{{ _("Save badge") }}</button>
-            <button class="button" name="action" value="save-edit-image">{{ _("Save and edit image") }}</button>
+            {% if request.can_edit_design %}
+                <button class="button" name="action" value="save-edit-image">{{ _("Save and edit image") }}</button>
+            {% endif %}
             <a href="{{ badge.get_absolute_url() }}" class="button-negative">{{ _("Cancel") }}</a>
         </p>
     </div>
