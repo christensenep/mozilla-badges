@@ -41,7 +41,6 @@ class ExtendedModelChoiceIterator (forms.models.ModelChoiceIterator):
         return self.Choice(self.field.prepare_value(obj), self.field.label_from_instance(obj), obj)
 
 
-
 class DesignForm (forms.ModelForm):
     is_design = forms.IntegerField(initial=1, widget=forms.HiddenInput)
 
@@ -84,7 +83,9 @@ class DesignForm (forms.ModelForm):
                     complex_input[input_key][input_value] = value
 
             for key, value in complex_input.items():
-                query[key] = value
+                if key not in query or type(query[key]) != dict:
+                    query[key] = {}
+                query[key].update(value)
 
             if 'palette' in query and query['palette']:
                 query.pop('colors')
