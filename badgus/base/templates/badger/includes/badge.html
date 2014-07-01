@@ -24,8 +24,10 @@
                 <div class="col span_1_of_2">
                     <dl class="meta">
                         {% block badge_meta %}
-                            <dt class="creator">{{ _("Created by") }}</dt>
-                                <dd class="creator"><a href="{{ badge.creator.get_absolute_url() }}">{{ badge.creator }}</a></dd>
+                            {% if badge.creator %}
+                                <dt class="creator">{{ _("Created by") }}</dt>
+                                    <dd class="creator"><a href="{{ badge.creator.get_absolute_url() }}">{{ badge.creator }}</a></dd>
+                            {% endif %}
                             <dt class="created">{{ _("Created on") }}</dt>
                                 <dd class="created">{{ badge.created.date() }}</dd>
                             {# if badge.created != badge.modified %}
