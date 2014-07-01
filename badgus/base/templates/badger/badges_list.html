@@ -13,7 +13,8 @@
 {% block pageid %}badges{% endblock %}
 
 {% block content %}
-    {% if badge_list.count() == 0 %}
+    {% set badge_count = badge_list | length %}
+    {% if badge_count == 0 %}
         {% if query_string %}
             <p class="text-center">
                 {{ _('We couldn\'t find any results for <strong>&ldquo;{query}&rdquo;</strong>.') | fe(query=query_string) }}
