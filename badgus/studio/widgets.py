@@ -26,7 +26,12 @@ class ComplexSelect (forms.Select):
             parts = attr.split('.', 1) + [None]
 
             try:
-                return lookup(getattr(context, parts.pop(0)), parts.pop(0))
+                value = lookup(getattr(context, parts.pop(0)), parts.pop(0))
+                if callable(value):
+                    value = value()
+                if value is None:
+                    value = ''
+                return value
             except AttributeError:
                 return None
 
@@ -148,9 +153,15 @@ class OptionsInput (forms.Widget):
 
 
 class GlyphInput (ComplexSelect):
-    object_attr_map = {
-        'data-glyph': 'reference'
-    }
+    def get_option_attrs (self, obj=None):
+        attrs = {}
+        if hasattr(obj, 'reference'):
+            attrs['data-glyph'] = obj.reference
+        if hasattr(obj, 'tags'):
+            tags = ', '.join(sorted([tag.name for tag in obj.tags.all()]))
+            if tags:
+                attrs['data-tags'] = tags
+        return attrs
 
     @classmethod
     def limit_choices (cls, queryset, user):

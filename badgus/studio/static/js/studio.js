@@ -191,6 +191,7 @@
         (function ($option, index) {
           var value = $option.getAttribute('data-glyph') || '';
           var id = 'glyph-selector-item-' + value;
+          var tags = $option.getAttribute('data-tags') || '';
 
           var $node = importTemplate('glyph-selector-item', function ($template) {
             var $input = $template.querySelector('input');
@@ -211,7 +212,8 @@
 
           glyphLog.push({
             id: id,
-            value: value
+            value: value,
+            tags: tags
           });
         })($$options[i], i);
       }
@@ -225,7 +227,8 @@
       clearTimeout(filterTimer);
 
       filterTimer = setTimeout(function () {
-        var query = ($filter.value || '').toLowerCase();
+        var query = ($filter.value || '').toLowerCase().replace(/\s*,\s*/, ',').split(',');
+        var queryRE = new RegExp('(^|,)[^,]*' + query.join('[^,]*|[^,]*') + '[^,]*(,|$)', 'i');
 
         for (var i = 0, l = glyphLog.length; i < l; i++) {
           var entry = glyphLog[i];
@@ -233,12 +236,8 @@
           if (!entry.el)
             entry.el = document.getElementById(entry.id).parentNode;
 
-          // TO DO - filter sensibly!
-          if (query && entry.value.indexOf(query) === -1) {
-            entry.el.style.display = 'none';
-          } else {
-            entry.el.style.display = '';
-          }
+          var matched = queryRE.test(entry.value + ', ' + entry.tags);
+          entry.el.style.display = (matched ? '' : 'none');
         }
       }, 250);
     }
