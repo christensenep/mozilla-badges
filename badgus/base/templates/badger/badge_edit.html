@@ -20,6 +20,7 @@
                         {% if not request.can_edit_design or field.name != 'image' %}
                             <li{% if field.required %} class="required"{% endif %}>
                                 {% if field.errors %}
+                                    <div class="field-error">
                                     {% for error in field.errors %}
                                         <p class="error text-danger"><i class="fa fa-warning"></i> {{ _(error) }}</p>
                                     {% endfor %}
@@ -28,6 +29,9 @@
                                 {{ field }}
                                 {% if field.help_text or field.field.required %}
                                     <p class="helptext">{{ field.help_text }}{% if field.field.required %} <em>(Required)</em>{% endif %}</p>
+                                {% endif %}
+                                {% if field.errors %}
+                                    </div>
                                 {% endif %}
                             </li>
                         {% endif %}
