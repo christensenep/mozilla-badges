@@ -34,6 +34,7 @@ class Template (models.Model):
 
 class Palette (models.Model):
     name = models.CharField(max_length=100, blank=False, unique=True)
+    restricted = models.BooleanField(blank=False, default=False)
 
     created = models.DateTimeField(auto_now_add=True, blank=False)
     modified = models.DateTimeField(auto_now=True, blank=False)
@@ -72,6 +73,7 @@ class Mask (models.Model):
     svg = models.FileField(blank=False,
             storage=BADGE_UPLOADS_FS, upload_to=mk_upload_to('svg', 'svg'),
             help_text='SVG template file')
+    restricted = models.BooleanField(blank=False, default=False)
 
     created = models.DateTimeField(auto_now_add=True, blank=False)
     modified = models.DateTimeField(auto_now=True, blank=False)
@@ -88,6 +90,7 @@ class Glyph (models.Model):
         help_text='FontAwesome reference', choices=glyphs)
     name = models.CharField(max_length=100, blank=True, null=True, unique=True,
         help_text='Alternative name')
+    restricted = models.BooleanField(blank=False, default=False)
 
     if taggit:
         tags = TaggableManager(blank=True)
@@ -98,10 +101,13 @@ class Glyph (models.Model):
     class Meta:
         ordering = ['name', 'reference']
 
-    def __unicode__(self):
+    def __unicode__ (self):
         if self.name:
             return self.name
         return self.get_reference_display();
+
+    def display (self):
+        return unicode(self)
 
 
 class Design (models.Model):

@@ -59,6 +59,8 @@ class DesignForm (forms.ModelForm):
         }
 
     def __init__(self, data=None, *args, **kwargs):
+        user = kwargs.pop('user', None)
+
         if data is not None:
             query = data.copy()
             if 'image' in data:
@@ -96,7 +98,12 @@ class DesignForm (forms.ModelForm):
         kwargs.setdefault('label_suffix', '')
         super(DesignForm, self).__init__(data, *args, **kwargs)
 
+        restricted = not(user and user.is_staff)
+
         for name, field in self.fields.items():
+            if restricted and hasattr(field.widget, 'limit_choices'):
+                field.queryset = field.widget.limit_choices(field.queryset, user)
+
             if hasattr(field, 'choices'):
                 required = field.required or getattr(field.widget, 'required', False)
                 field.empty_label = None if required else 'None'

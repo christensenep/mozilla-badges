@@ -59,6 +59,8 @@ class IsNullFieldListFilter(admin.FieldListFilter):
                     }),
                 'display': title,
             }
+
+
 class DesignAdmin(admin.ModelAdmin):
     _template = _make_display_method('Template')
     _palette = _make_display_method('Color Palette', 'palette')
@@ -118,6 +120,7 @@ class TemplateAdmin(admin.ModelAdmin):
     img.short_description = 'Image'
 
     list_display = ('name', 'restricted', img,)
+    list_editable = ('restricted',)
 
 
 class PaletteAdmin(admin.ModelAdmin):
@@ -133,12 +136,14 @@ class PaletteAdmin(admin.ModelAdmin):
     colors_list.allow_tags = True
     colors_list.short_description = 'Colors'
 
-    list_display = ('name', colors_list,)
+    list_display = ('name', colors_list, 'restricted')
+    list_editable = ('restricted',)
     inlines = (ColorInline,)
 
 
 class MaskAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'restricted',)
+    list_editable = ('restricted',)
 
 
 class GlyphAdmin(admin.ModelAdmin):
@@ -149,8 +154,12 @@ class GlyphAdmin(admin.ModelAdmin):
         return '<span style="display: inline-block; width: 1.5em; font-size: 2em; vertical-align: middle;"><i class="fa fa-%s"></i></span> %s' % (self.reference, self)
     with_icon.allow_tags = True
     with_icon.short_description = 'Glyph'
+    with_icon.admin_order_field = 'display'
 
-    list_display = (with_icon,)
+    list_display = (with_icon, 'restricted',)
+    list_filter = ('restricted',)
+    list_editable = ('restricted',)
+
 
 for x in ((Design, DesignAdmin),
           (Template, TemplateAdmin),

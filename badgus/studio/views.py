@@ -63,7 +63,7 @@ def create (request):
 
     if request.method == 'POST':
         if request.POST.get('is_design', 0):
-            form = DesignForm(request.POST)
+            form = DesignForm(request.POST, user=request.user)
             if form.is_valid():
                 design = form.save(commit=False)
                 design.creator = request.user
@@ -83,12 +83,12 @@ def create (request):
             else:
                 return _show_meta_data_form(previous.image, request)
     else:
-        form = DesignForm()
+        form = DesignForm(user=request.user)
 
     if (previous):
         print request.GET
         if 'yes' in request.GET.get('resume', []):
-            form = DesignForm(instance=previous)
+            form = DesignForm(instance=previous, user=request.user)
         else:
             attrs = request.GET.copy()
             attrs['resume'] = 'yes'
@@ -137,9 +137,9 @@ def edit_design (request, slug):
         return HttpResponseNotFound()
 
     if request.method == 'GET':
-        form = DesignForm(instance=design)
+        form = DesignForm(instance=design, user=request.user)
     else:
-        form = DesignForm(request.POST)
+        form = DesignForm(request.POST, user=request.user)
         if form.is_valid():
             new_design = form.save(commit=False)
             new_design.creator = design.creator

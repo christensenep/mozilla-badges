@@ -76,9 +76,19 @@ class TemplateInput (ComplexSelect):
         'data-path': 'svg.url'
     }
 
+    @classmethod
+    def limit_choices (cls, queryset, user):
+        queryset = queryset.filter(restricted=False)
+        return queryset
+
 
 class PaletteInput (ComplexSelect):
     required = True
+
+    @classmethod
+    def limit_choices (cls, queryset, user):
+        queryset = queryset.filter(restricted=False)
+        return queryset
 
     def get_option_attrs (self, obj=None):
         attrs = {}
@@ -112,6 +122,12 @@ class MaskInput (ComplexSelect):
         'data-path': 'svg.url'
     }
 
+    @classmethod
+    def limit_choices (cls, queryset, user):
+        queryset = queryset.filter(restricted=False)
+        # print type(queryset), type(user)
+        return queryset
+
 
 class OptionsInput (forms.Widget):
 
@@ -135,6 +151,12 @@ class GlyphInput (ComplexSelect):
     object_attr_map = {
         'data-glyph': 'reference'
     }
+
+    @classmethod
+    def limit_choices (cls, queryset, user):
+        queryset = queryset.filter(restricted=False)
+        # print type(queryset), type(user)
+        return queryset
 
 
 class ImageInput (forms.HiddenInput):
