@@ -495,4 +495,5 @@ INSERT INTO `studio_glyph` (`reference`, `created`, `modified`) VALUES
     ('yen', NOW(), NOW()),
     ('youtube', NOW(), NOW()),
     ('youtube-play', NOW(), NOW()),
-    ('youtube-square', NOW(), NOW());
+    ('youtube-square', NOW(), NOW())
+;
