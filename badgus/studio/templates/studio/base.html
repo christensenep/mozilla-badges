@@ -17,14 +17,19 @@
                         {{ field }}
                     </div>
                 {% else %}
-                    <h3 class="label">{{ field.label_tag() }}</h3>
+                    <h3 class="label">{{ field.label_tag() }}
+                      {% if field.help_text %}
+                        <a href="#help-section-{{ field.id_for_label }}" title="{{ _('Help') }}" class="help">
+                          <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                      {% endif %}
+                    </h3>
                     <div class="item">
                         {{ field }}
                     </div>
                 {% endif %}
             {% endfor %}
             {% block studio_actions %}
-                <p class="text-right">No actions!</p>
             {% endblock %}
         </form>
     </div>
@@ -33,26 +38,44 @@
         <template id="settings-template">
           <div id="settings" role="dialog" class="overlay hidden" arial-labelledby="settings-title">
             <header class="header">
-              <h2 class="title" id="settings-title">Settings</h2>
+              <h3 class="title" id="settings-title">{{ _('Settings') }}</h3>
             </header>
             <div class="panel">
-              <h3 class="label">Display</h3>
+              <h3 class="label">{{ _('Display') }}</h3>
               <p>
                 <select name="display">
-                  <option value="dark">Dark</option>
-                  <option value="light">Light</option>
+                  <option value="dark">{{ _('Dark') }}</option>
+                  <option value="light">{{ _('Light') }}</option>
                 </select>
               </p>
-              <h3 class="label">Badge Size</h3>
-              <small>Only affects display size</small>
+              <h3 class="label">{{ _('Badge Size') }}</h3>
+              <small>{{ _('Only affects display size') }}</small>
               <p>
                 <select name="badge-size">
-                  <option value="1">Normal</option>
-                  <option value="0.75">Large</option>
-                  <option value="0.5">Medium</option>
-                  <option value="0.25">Small</option>
+                  <option value="1">{{ _('Normal') }}</option>
+                  <option value="0.75">{{ _('Large') }}</option>
+                  <option value="0.5">{{ _('Medium') }}</option>
+                  <option value="0.25">{{ _('Small') }}</option>
                 </select>
               </p>
+            </div>
+          </div>
+        </template>
+
+        <template id="help-template">
+          <div id="help" role="dialog" class="overlay hidden" aria-labelledby="help-title">
+            <header class="header">
+              <h3 class="title" id="help-title">{{ _('Help') }}</h3>
+            </header>
+            <div class="panel">
+              <dl class="help">
+                {% for field in form.visible_fields() %}
+                  {% if field.help_text %}
+                    <dt id="help-section-{{ field.id_for_label }}">{{ _(field.label) }}</dt>
+                      <dd>{{ _(field.help_text) }}</dd>
+                  {% endif %}
+                {% endfor %}
+              </dl>
             </div>
           </div>
         </template>
@@ -78,6 +101,7 @@
 
         <template id="option-template">
           <label>
+            <input type="hidden">
             <input type="checkbox">
             <span>Label</span>
           </label>

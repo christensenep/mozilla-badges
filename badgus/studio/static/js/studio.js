@@ -20,6 +20,8 @@
   var $settings;
   var $settingsButton;
 
+  var $help;
+
   window.addEventListener('load', function init () {
     $badgeRaster = new Image();
     $badgeRaster.id = 'raster';
@@ -58,6 +60,7 @@
    */
   function initStudio () {
     initSettings();
+    initHelp();
     initGlyphSelector();
 
     document.addEventListener('keydown', function(event) {
@@ -160,6 +163,59 @@
 
     $settings.classList.add('hidden');
     $settingsButton.focus();
+  }
+
+  // ==[ Help ]=================================================================
+
+  /**
+   *
+   */
+  function initHelp () {
+    if ($help)
+      return false
+
+    $help = importTemplate('help').querySelector('#help');
+    $help.querySelector('.header').appendChild(makeCloseButton(closeHelp));
+    $studio.appendChild($help);
+
+    $studio.addEventListener('click', function (event) {
+      var $target = (event.target || {});
+
+      if ($target.nodeName !== 'A')
+        $tareget = $target.parentNode;
+
+      if (!$target || ($target.nodeName !== 'A') || !$target.classList.contains('help'))
+        return;
+
+      event.preventDefault();
+      openHelp($target.getAttribute('href').substr(1))
+    });
+  }
+
+  /**
+   *
+   */
+  function openHelp (section) {
+    if (!$help)
+      initHelp();
+
+    $help.classList.remove('hidden');
+    $help.focus();
+    if (section) {
+      var $section = document.getElementById(section);
+      if ($section)
+        $section.focus();
+    }
+  }
+
+  /**
+   *
+   */
+  function closeHelp () {
+    if (!$settings)
+      return;
+
+    $help.classList.add('hidden');
   }
 
   // ==[ Glyph Selector ]=======================================================
@@ -756,7 +812,7 @@
   function initOptions () {
     var $options = document.getElementById('options');
     for (var key in $options.dataset) {
-      options[key] = !!$options.dataset[key];
+      options[key] = ($options.dataset[key] === 'on');
     }
 
     if ($badge)
@@ -798,8 +854,22 @@
       $option[!!options[name] ? 'removeAttribute' : 'setAttribute']('display', 'none');
 
       $options.appendChild(importTemplate('option', function ($template) {
-        var $checkbox = $template.querySelector('input');
+        var $$inputs = $template.querySelectorAll('input');
+        var $hidden = $$inputs[0];
+        var $checkbox = $$inputs[1];
+
+        // Double input hack:
+        // If the checkbox is unchecked it's state won't be sent to the server,
+        // so the next time we come to edit the design the default state will be
+        // used instead of however the user left it. By including the hidden
+        // input first, an 'off' value will be sent, and overridden by an 'on'
+        // value should the checkbox be checked.
+
+        $hidden.name = 'options[' + name + ']';
+        $hidden.value = 'off';
+
         $checkbox.name = 'options[' + name + ']';
+        $checkbox.value = 'on';
         $checkbox.setAttribute('data-property', name);
         $checkbox.checked = !!options[name];
 

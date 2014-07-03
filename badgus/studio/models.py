@@ -111,14 +111,18 @@ class Glyph (models.Model):
 
 
 class Design (models.Model):
-    template = models.ForeignKey(Template)
+    template = models.ForeignKey(Template, help_text="Template help")
     palette = models.ForeignKey(Palette, blank=True, null=True,
-                                verbose_name='Color Palette')
+                                verbose_name='Color Palette',
+                                help_text="Color Palette help")
     colors = PickledObjectField(blank=True, null=True)
     mask = models.ForeignKey(Mask, blank=True, null=True,
-                                verbose_name='Background Mask')
-    options = PickledObjectField(blank=True, null=True)
-    glyph = models.ForeignKey(Glyph, blank=True, null=True)
+                                verbose_name='Background Mask',
+                                help_text="Mask help")
+    options = PickledObjectField(blank=True, null=True,
+                                help_text="Options help")
+    glyph = models.ForeignKey(Glyph, blank=True, null=True,
+                                help_text="Glyph help")
     badge = models.ForeignKey(Badge, blank=True, null=True, unique=True, editable=False)
     image = models.ImageField(blank=False,
             storage=BADGE_UPLOADS_FS, upload_to=mk_upload_to('image', 'png'),
