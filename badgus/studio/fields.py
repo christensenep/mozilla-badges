@@ -37,7 +37,7 @@ class PickledObjectField(models.Field):
                         if value == '':
                             pass
                 return value
-            except pickle.UnpicklingError as err:
+            except (pickle.UnpicklingError, EOFError) as err:
                 # If an error was raised, just return the plain value
                 return value
 

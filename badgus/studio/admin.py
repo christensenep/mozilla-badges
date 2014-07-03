@@ -75,7 +75,7 @@ class DesignAdmin(admin.ModelAdmin):
     _design.short_description = 'Design'
 
     def _image (self, obj):
-        return _render_image(obj.image)
+        return _render_image(obj.image, 256)
     _image.allow_tags = True
     _image.short_description = 'Image'
 
@@ -99,12 +99,11 @@ class DesignAdmin(admin.ModelAdmin):
 
     list_display = (_design, _badge, _creator, _glyph, 'created',)
     list_filter = (('badge', IsNullFieldListFilter), 'template', 'palette')
-    fieldsets = ((None, {'fields':('_image', 'created',)}),
+    fieldsets = ((None, {'fields':('_image', 'created', '_creator', '_badge',)}),
                     ('Meta', {'fields':('_template', '_palette', '_colors',
-                                        '_mask', '_options', '_glyph',)}),
-                    ('related', {'fields':('_badge', '_creator',)}))
+                                        '_mask', '_options', '_glyph',)}))
     readonly_fields = ('_template', '_palette', '_colors', '_mask', '_options', '_glyph',
-                        '_badge', '_image', '_creator', 'created')
+                        '_badge', '_image', '_creator', 'created',)
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'creator', None) is None:
@@ -112,6 +111,7 @@ class DesignAdmin(admin.ModelAdmin):
         if obj.creator.is_anonymous:
             raise ValidationError('Creator cannot be anonymous')
         obj.save()
+
 
 class TemplateAdmin(admin.ModelAdmin):
     def img (self):
