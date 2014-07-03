@@ -182,7 +182,7 @@
       var $target = (event.target || {});
 
       if ($target.nodeName !== 'A')
-        $tareget = $target.parentNode;
+        $target = $target.parentNode;
 
       if (!$target || ($target.nodeName !== 'A') || !$target.classList.contains('help'))
         return;
