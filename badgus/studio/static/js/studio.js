@@ -73,7 +73,7 @@
     }, true);
 
     document.addEventListener('focus', function(event) {
-      [$settings, $glyphSelector].forEach(function ($overlay) {
+      [$settings, $help, $glyphSelector].forEach(function ($overlay) {
         if ($overlay && $overlay.offsetWidth && !$overlay.contains(event.target)) {
           event.stopPropagation();
           $overlay.focus();
