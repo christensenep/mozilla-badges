@@ -12,6 +12,9 @@
         <div class="section group">
             <div class="col span_1_of_3">
                 <img src="{{ badge.image.url }}" width="256" height="256" class="image">
+                {% if request.can_edit_design %}
+                    <p><a class="button" href="{{ url('edit_badge_design', badge.slug) }}">Edit image</a></p>
+                {% endif %}
                 <!-- <p><button class="button-positive" name="action" value="edit-picture"><i class="fa fa-pencil"></i> Edit</button></p> -->
             </div>
             <div class="meta col span_2_of_3">
