@@ -241,6 +241,8 @@ CSP_FRAME_SRC = ("'self'",
 CSP_OPTIONS = ('eval-script',)
 
 BADGER_ALLOW_ADD_BY_ANYONE = False
+BADGER_BADGE_PAGE_SIZE = 23
+BADGER_MAX_RECENT = 5
 
 DEFAULT_FROM_EMAIL = 'notifications@badges.mozilla.org'
 OBI_BASE_URL = "//backpack.openbadges.org/"
