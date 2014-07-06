@@ -20,14 +20,17 @@
     <main id="content" role="main">
         <div class="constrained">
             <div class="hero">
-                <h1 class="title"><img src="{{ static('img/mozilla-wordmark-red.png') }}" alt="Mozilla" width="258" height="70" style="margin-bottom: -4px;"> Badges</h1>
+                <h1 class="title">
+                    <span class="mozilla-wordmark">Mozilla</span>
+                    Badges
+                </h1>
                 <p class="tagline">{{ _('Agnoscere res gestas omnes') }}</p>
                 <!-- Worth noting I haven't done Latin in about 15 years! -->
                 <img src="{{ static('img/badge-panel.png') }}" alt="" style="display: block; margin: 0 auto;">
                 <hr>
                 <form method="get" action="{{ url('badger.views.badges_list') }}" class="search" title="Search">
                     <label for="search"><i class="fa fa-search" aria-label="{{ _('Search') }}" aria-hidden="true"></i></label>
-                    <input type="text" name="q" id="search" class="q"
+                    <input type="search" name="q" id="search" class="q"
                         value="{{ request.GET.get('q', '') }}" aria-label="{{ _('Search') }}">
                 </form>
                 <div class="section group">
@@ -72,6 +75,7 @@
                             {% set include_more_awards_item=true %}
                             {% set cols=3 %}
                             {% set hide_pagination=true %}
+                            {% set user_first=true %}
                             {% include "badger/includes/awards.html" %}
                         {% endwith %}
                     </div>

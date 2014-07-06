@@ -62,6 +62,16 @@ input[type=color] {
   appearance: none;
 }
 
+.mozilla-wordmark {
+  display: inline-block;
+  width: 258px;
+  height: 70px;
+  margin-bottom: -4px;
+  background-image: url('../img/mozilla-wordmark-red.png');
+  text-indent: -100%;
+  overflow: hidden;
+}
+
 .hero {
   text-align: center;
   margin-bottom: 5em;
@@ -174,6 +184,11 @@ input[type=color] {
   margin: 1em 0 0;
 }
 
+dl.help {
+  margin: 0;
+  padding: 0;
+}
+
 .meta dt,
 .help dt {
   float: left;
@@ -206,13 +221,7 @@ input[type=color] {
 
 .help dt:first-of-type,
 .help dd:first-of-type {
-  padding-top: 1em;
   border: none;
-}
-
-.help dt:last-of-type,
-.help dd:last-of-type {
-  padding-bottom: 0;
 }
 
 .notices {

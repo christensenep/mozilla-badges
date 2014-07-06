@@ -10,7 +10,8 @@
 textarea,
 input[type=email],
 input[type=password],
-input[type=text] {
+input[type=text],
+input[type=search] {
   height: 1.25em;
   background: #fafafa;
   border-color: #dbdbdb;
@@ -23,6 +24,7 @@ input[type=text] {
   transition: all linear 0.1s;
   font-family: inherit;
   font-size: inherit;
+  box-sizing: content-box;
 }
 textarea {
   height: auto;
@@ -30,7 +32,8 @@ textarea {
 textarea:focus,
 input[type=email]:focus,
 input[type=password]:focus,
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=search]:focus {
   border-color: #bbb;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset, 0 0 8px 0 rgba(103, 167, 208, 0.6);
   -webkit-transition: all linear 0.1s;
@@ -50,7 +53,8 @@ input[type=text]:focus {
 }
 .field-error input[type=email],
 .field-error input[type=password],
-.field-error input[type=text] {
+.field-error input[type=text],
+.field-error input[type=search] {
   border-color: #af3232;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1) inset, 0 0 8px 0 rgba(175, 50, 50, 0.6);
 }

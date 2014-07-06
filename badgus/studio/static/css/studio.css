@@ -2,6 +2,10 @@ template {
   display: none;
 }
 
+.panel {
+  overflow: visible;
+}
+
 #studio {
   padding: 20px;
   padding-right: 600px;

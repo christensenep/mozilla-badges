@@ -67,6 +67,8 @@
       if (event.keyCode === 27) { // Escape
         if ($settings && $settings.offsetWidth)
           closeSettings();
+        else if ($help && $help.offsetWidth)
+          closeHelp();
         else if ($glyphSelector && $glyphSelector.offsetWidth)
           closeGlyphSelector();
       }
@@ -190,6 +192,13 @@
       event.preventDefault();
       openHelp($target.getAttribute('href').substr(1))
     });
+
+    $help.addEventListener('focus', function(event) {
+      var $target = event.target;
+      if ($target.nodeName !== 'DD')
+        return;
+      $help.setAttribute('return', '#'+$target.id);
+    }, true);
   }
 
   /**
@@ -216,6 +225,15 @@
       return;
 
     $help.classList.add('hidden');
+
+    var returnTo = $help.getAttribute('return');
+    $help.removeAttribute('return');
+
+    if (returnTo) {
+      var $returnTo = $studio.querySelector('[href$="'+returnTo+'"]');
+      if ($returnTo)
+        $returnTo.focus();
+    }
   }
 
   // ==[ Glyph Selector ]=======================================================

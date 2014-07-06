@@ -1,7 +1,16 @@
+{% macro figure (img, label, front_or_back=None) %}
+    {% if front_or_back %}<span class="card card-{{ front_or_back }}">{% endif %}
+    <span class="figure">
+        <img src="{{ img }}" alt="" width="128" height="128" class="image">
+    </span>
+    <span class="label">{{ label }}</span>
+    {% if front_or_back %}</span>{% endif %}
+{% endmacro %}
+
 {% set cols = cols or 6 %}
 {% set row_index = cycler(*range(cols)) %}
 <div class="section group">
-    <ul class="awards grid">
+    <ul class="awards grid" aria-label="{{ _('List of awards') }}">
         {%- for award in award_list -%}
             {%- if award.image -%}
                 {%- set img_url = award.image.url -%}
@@ -11,34 +20,24 @@
                 {%- set img_url = static("img/default-badge.png") -%}
             {%- endif -%}
             <li class="award col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
+                {%- set label = _('{user} was awarded {badge}') | fe(user=award.user, badge=award.badge.title) -%}
                 {% if show_user == false %}
-                    <a href="{{ award.get_absolute_url() }}" class="card">
-                        <span class="figure">
-                            <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
-                        </span>
-                        <span class="label">{{ award.badge.title }}</span>
+                    <a href="{{ award.get_absolute_url() }}" class="card" aria-label="{{ label }}">
+                        {{ figure(img_url, award.badge.title) }}
                     </a>
                 {% elif show_badge == false %}
-                    <a href="{{ award.get_absolute_url() }}" class="card">
-                        <span class="figure">
-                            <img src="{{ user_avatar(award.user) }}" alt="{{ award.user }}" width="128" height="128" class="image">
-                        </span>
-                        <span class="label">{{ award.user }}</span>
+                    <a href="{{ award.get_absolute_url() }}" class="card" aria-label="{{ label }}">
+                        {{ figure(user_avatar(award.user), award.user) }}
                     </a>
                 {% else %}
-                    <a href="{{ award.get_absolute_url() }}" class="card-wrapper">
-                        <span class="card card-front">
-                            <span class="figure">
-                                <img src="{{ img_url }}" alt="{{ award.badge.title }}" width="128" height="128" class="image">
-                            </span>
-                            <span class="label">{{ award.badge.title }}</span>
-                        </span>
-                        <span class="card card-back">
-                            <span class="figure">
-                                <img src="{{ user_avatar(award.user) }}" alt="{{ award.user }}" width="128" height="128" class="image">
-                            </span>
-                            <span class="label">{{ award.user }}</span>
-                        </span>
+                    <a href="{{ award.get_absolute_url() }}" class="card-wrapper" aria-label="{{ label }}">
+                        {% if user_first %}
+                            {{ figure(user_avatar(award.user), award.user, 'front') }}
+                            {{ figure(img_url, award.badge.title, 'back') }}
+                        {% else %}
+                            {{ figure(img_url, award.badge.title, 'front') }}
+                            {{ figure(user_avatar(award.user), award.user, 'back') }}
+                        {% endif %}
                     </a>
                 {% endif %}
             </li>

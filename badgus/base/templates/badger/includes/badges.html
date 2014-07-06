@@ -1,7 +1,7 @@
 {% set cols = cols or 6 %}
 {% set row_index = cycler(*range(cols)) %}
 <div class="sectiong group">
-    <ul class="badges grid">
+    <ul class="badges grid" aria-label="{{ _('List of badges') }}">
         {%- for badge in badge_list -%}
             {%- if badge.image -%}
                 {%- set img_url = badge.image.url -%}
@@ -10,7 +10,7 @@
             {%- endif -%}
             <li class="badge col span_1_of_{{ cols }}{% if not row_index.next() %} new-row{% endif %}">
                 <a href="{{ badge.get_absolute_url() }}" class="card">
-                    <img src="{{ img_url }}" alt="{{ badge.title }}" width="128" height="128" class="image">
+                    <img src="{{ img_url }}" alt="" width="128" height="128" class="image">
                     <span class="label">{{ badge.title }}</span>
                 </a>
             </li>

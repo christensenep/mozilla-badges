@@ -53,10 +53,12 @@
                                                     <div id="nav-user">
                                                         {% if request.user.is_authenticated() %}
                                                             {% trans user_url=request.user.get_absolute_url(), user_name=request.user, user_email=request.user.email %}
-                                                                <a class="signed-in-user" data-email="{{user_email}}" href="{{user_url}}">{{user_name}}</a>
+                                                                Welcome, <a class="signed-in-user" data-email="{{user_email}}" href="{{user_url}}">{{user_name}}</a>
                                                             {% endtrans %}
-                                                            {% if notice_unseen_count %}
-                                                                <a class="notices" aria-label="Messages" href="{{ url('notification_notices') }}">{{ notice_unseen_count }}</a>
+                                                            {% if notice_unseen_count == 1 %}
+                                                                <a class="notices" aria-label="{{ _('{count} new message') | fe(count=notice_unseen_count) }}" title="Messages" href="{{ url('notification_notices') }}">{{ notice_unseen_count }}</a>
+                                                            {% elif notice_unseen_count %}
+                                                                <a class="notices" aria-label="{{ _('{count} new messages') | fe(count=notice_unseen_count) }}" title="Messages" href="{{ url('notification_notices') }}">{{ notice_unseen_count }}</a>
                                                             {% endif %}
                                                             | <a class="browserid-signout" href="{{ url('profiles.logout') }}">{{_('Sign out')}}</a>
                                                         {% else %}
@@ -76,7 +78,7 @@
                                                         <li class="last menu-item search-item">
                                                             <form method="get" action="{{ url('badger.views.badges_list') }}" class="search" title="Search">
                                                                 <label for="search"><i class="fa fa-search" aria-label="{{ _('Search') }}" aria-hidden="true"></i></label>
-                                                                <input type="text" name="q" id="search" class="q"
+                                                                <input type="search" name="q" id="search" class="q"
                                                                     value="{{ request.GET.get('q', '') }}" aria-label="{{ _('Search') }}">
                                                             </form>
                                                         </li>
