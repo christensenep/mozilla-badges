@@ -22,9 +22,14 @@
 
   var $help;
 
+  $badgeRaster = new Image();
+  $badgeRaster.id = 'raster';
+
+  initSettings();
+  initHelp();
+  initGlyphSelector();
+
   window.addEventListener('load', function init () {
-    $badgeRaster = new Image();
-    $badgeRaster.id = 'raster';
     document.getElementById('studio-output').appendChild($badgeRaster);
 
     $template.addEventListener('change', updateTemplate);
@@ -59,10 +64,6 @@
    *
    */
   function initStudio () {
-    initSettings();
-    initHelp();
-    initGlyphSelector();
-
     document.addEventListener('keydown', function(event) {
       if (event.keyCode === 27) { // Escape
         if ($settings && $settings.offsetWidth)
@@ -128,12 +129,12 @@
     function handleUpdate (name, value) {
       switch (name) {
         case 'display':
-          document.body.className = value;
+          $studio.className = value;
           break;
         case 'badge-size':
           var scale = parseFloat(value);
           ['WebkitTransform', 'MozTransform', 'transform'].forEach(function(transform) {
-            $badgeRaster.style[transform] = 'scale(' + scale + ')';
+            $badgeRaster && ($badgeRaster.style[transform] = 'scale(' + scale + ')');
           });
           break;
         default:

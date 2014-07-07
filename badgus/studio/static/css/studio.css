@@ -18,7 +18,6 @@ template {
   background-position: 50% 50%;
 
   color: #EEE;
-  border-color: #333;
   background-color: #002F7A;
   background-image: radial-gradient(ellipse farthest-corner at 50% 50%, rgba(255,255,255,0.1) 0, rgba(0,0,0,0.25) 100%),
                     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -33,9 +32,8 @@ template {
   clear: both;
 }
 
-#studio.light .content {
+#studio.light {
   color: #484848;
-  border: solid 1px #EEE;
   background-color: #FFF;
   background-image: radial-gradient(ellipse farthest-corner at 50% 50%, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.9) 100%),
                     linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
