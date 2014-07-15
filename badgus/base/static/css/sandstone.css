@@ -69,6 +69,7 @@ input[type=color] {
   margin-bottom: -4px;
   background-image: url('../img/mozilla-wordmark-red.png');
   text-indent: -100%;
+  text-align: left;
   overflow: hidden;
 }
 
